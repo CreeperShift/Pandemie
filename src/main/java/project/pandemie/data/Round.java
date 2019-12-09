@@ -2,7 +2,7 @@ package project.pandemie.data;
 
 import java.util.Collection;
 
-public class Data {
+public class Round {
 
     private String pending;
     private int round;
@@ -12,7 +12,7 @@ public class Data {
 
 
 
-    Data(){}
+    Round(){}
 
 
 
