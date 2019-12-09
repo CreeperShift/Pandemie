@@ -3,7 +3,6 @@ package project.pandemie.http;
 import project.pandemie.api.IConnection;
 import spark.Spark;
 
-import static spark.Spark.post;
 
 public class HttpConnection implements IConnection {
 
@@ -16,7 +15,7 @@ public class HttpConnection implements IConnection {
 
     private void connect(){
 
-        post("/", (req, res) -> {
+        Spark.post("/", (req, res) -> {
             buffer = req.body();
             return null;
         });
@@ -26,10 +25,10 @@ public class HttpConnection implements IConnection {
     @Override
     public boolean send(final String m) {
 
-        post("/", (req, res) -> {
+        Spark.post("/", (req, res) -> {
             return m;
         });
-        post("/", (req, res) -> {
+        Spark.post("/", (req, res) -> {
             buffer = req.body();
             return null;
         });
