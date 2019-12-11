@@ -11,7 +11,7 @@ public class Actor implements ILogic {
     @Override
     public List<Move> getMoves(Round r) {
 
-        List<Move> list = new ArrayList<Move>();
+        List<Move> list = new ArrayList<>();
         list.add(new Move.Builder("endRound").build());
         return list;
     }
