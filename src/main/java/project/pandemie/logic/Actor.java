@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Actor implements ILogic {
+
     @Override
     public List<Move> getMoves(Round r) {
+
+        //TODO: Replace DUMMY logic
 
         List<Move> list = new ArrayList<>();
 

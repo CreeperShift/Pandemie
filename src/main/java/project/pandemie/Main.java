@@ -1,6 +1,5 @@
 package project.pandemie;
 
-import com.google.gson.Gson;
 import project.pandemie.api.ILogic;
 import project.pandemie.api.IParser;
 import project.pandemie.data.Move;
@@ -17,50 +16,64 @@ import static spark.Spark.*;
 
 public class Main {
 
-    static final int PORT = 50123;
+    static int PORT = 50123;
     static File file;
     static List<Move> moveList = new ArrayList<>();
     static IParser parser;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        init();
+        init(args);
 
         post("/", (req, res) -> {
 
-           if(moveList.isEmpty()){
+            if (moveList.isEmpty()) {
 
-               Round r = parser.parseRound(req.body());
+                Round r = parser.parseRound(req.body());
 
-               ILogic logic = new Actor();
-               moveList = logic.getMoves(r);
+                ILogic logic = new Actor();
+                moveList = logic.getMoves(r);
 
-               //Debug Output
-               System.out.println(r.getRound());
-               System.out.println(r.getOutcome());
-               System.out.println(r.getPoints());
-               System.out.println(parser.parseMove(moveList.get(0)));
-               System.out.println(r.getCities().iterator().next().toString());
+                //Debug Output
+                System.out.println(r.getRound());
+                System.out.println(r.getOutcome());
+                System.out.println(r.getPoints());
+                System.out.println(parser.parseMove(moveList.get(0)));
+                System.out.println(r.getCities().iterator().next().toString());
 
 
-               return parser.parseMove(moveList.remove(0));
-           }
+                return parser.parseMove(moveList.remove(0));
+            }
 
-           return parser.parseMove(moveList.remove(0));
+            return parser.parseMove(moveList.remove(0));
 
         });
 
     }
 
 
-    private static void init(){
+    private static void init(String[] args) {
+
+        if (args.length > 1 && args[0].equals("-p")) {
+                Integer p = null;
+                try {
+                    p = Integer.parseInt(args[1]);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                if(null != p){
+                PORT = p;
+
+            }
+
+        }
 
         port(PORT);
 
         parser = new Parser();
 
         file = new File("log.txt");
-        if(!file.exists()){
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
