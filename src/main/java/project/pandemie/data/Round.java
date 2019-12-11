@@ -53,4 +53,15 @@ public class Round {
     public Collection<Events> getEvents() {
         return events;
     }
+
+    @Override
+    public String toString() {
+        return "Round{" +
+                "outcome='" + outcome + '\'' +
+                ", round=" + round +
+                ", points=" + points +
+                ", cities=" + cities +
+                ", events=" + events +
+                '}';
+    }
 }

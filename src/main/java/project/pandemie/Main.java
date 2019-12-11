@@ -17,7 +17,6 @@ import static spark.Spark.*;
 
 public class Main {
 
-    static Gson gson = new Gson();
     static final int PORT = 50123;
     static File file;
     static List<Move> moveList = new ArrayList<>();
