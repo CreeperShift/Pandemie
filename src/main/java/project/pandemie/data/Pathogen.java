@@ -7,7 +7,5 @@ public class Pathogen {
     private String mobility;
     private String duration;
     private String lethality;
-    private double prevalence;
-    private int sinceRound;
 
 }

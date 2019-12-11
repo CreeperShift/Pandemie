@@ -36,9 +36,12 @@ public class Main {
                ILogic logic = new Actor();
                moveList = logic.getMoves(r);
 
+               //Debug Output
                System.out.println(r.getRound());
                System.out.println(r.getOutcome());
                System.out.println(r.getPoints());
+               System.out.println(parser.parseMove(moveList.get(0)));
+
 
                return parser.parseMove(moveList.remove(0));
            }

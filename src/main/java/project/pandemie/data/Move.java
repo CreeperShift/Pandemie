@@ -12,7 +12,7 @@ public class Move {
 
         private String type;
         private String city;
-        private int rounds;
+        private Integer rounds;
         private String fromCity;
         private String toCity;
         private String pathogen;
@@ -64,7 +64,7 @@ public class Move {
 
     private String type;
     private String city;
-    private int rounds;
+    private Integer rounds;
     private String fromCity;
     private String toCity;
     private String pathogen;

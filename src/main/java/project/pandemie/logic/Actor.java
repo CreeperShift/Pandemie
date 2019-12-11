@@ -12,6 +12,11 @@ public class Actor implements ILogic {
     public List<Move> getMoves(Round r) {
 
         List<Move> list = new ArrayList<>();
+
+        if(r.getRound() == 1){
+            list.add(new Move.Builder("closeAirport").withCity("Abuja").withRounds(2).build());
+        }
+
         list.add(new Move.Builder("endRound").build());
         return list;
     }
