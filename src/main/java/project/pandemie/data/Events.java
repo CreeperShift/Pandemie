@@ -4,6 +4,8 @@ import java.util.Collection;
 
 public class Events {
 
-    private Collection events;
+    private String type;
+    private int round;
+    private Pathogen pathogen;
 
 }

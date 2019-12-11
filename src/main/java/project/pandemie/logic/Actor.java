@@ -4,11 +4,11 @@ import project.pandemie.api.ILogic;
 import project.pandemie.data.Move;
 import project.pandemie.data.Round;
 
-import java.util.Collection;
+import java.util.List;
 
 public class Actor implements ILogic {
     @Override
-    public Collection<Move> getMoves(Round r) {
+    public List<Move> getMoves(Round r) {
         return null;
     }
 }

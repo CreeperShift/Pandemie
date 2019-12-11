@@ -2,7 +2,7 @@ package project.pandemie.data;
 
 public class TestMove {
 
-    String type = "closeAirport";
+    String type = "applyHygienicMeasures";
     String city = "Berlin";
-    int rounds = 2;
+   // int rounds = 2;
 }
