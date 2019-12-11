@@ -1,14 +1,49 @@
 package project.pandemie.data;
 
-import java.util.Collection;
 
 public class Events {
 
     private String type;
-    private int round;
+    private Integer round;
     private Pathogen pathogen;
-    private int sinceRound;
+    private Integer sinceRound;
     private double prevalence;
-    private int untilRound;
+    private Integer untilRound;
+
+    public String getType() {
+        return type;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public Pathogen getPathogen() {
+        return pathogen;
+    }
+
+    public int getSinceRound() {
+        return sinceRound;
+    }
+
+    public double getPrevalence() {
+        return prevalence;
+    }
+
+    public int getUntilRound() {
+        return untilRound;
+    }
+
+    @Override
+    public String toString() {
+        return "Events{" +
+                "type='" + type + '\'' +
+                ", round=" + round +
+                ", pathogen=" + pathogen +
+                ", sinceRound=" + sinceRound +
+                ", prevalence=" + prevalence +
+                ", untilRound=" + untilRound +
+                '}';
+    }
 
 }

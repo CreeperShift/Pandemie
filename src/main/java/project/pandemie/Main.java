@@ -41,6 +41,7 @@ public class Main {
                System.out.println(r.getOutcome());
                System.out.println(r.getPoints());
                System.out.println(parser.parseMove(moveList.get(0)));
+               System.out.println(r.getCities().iterator().next().toString());
 
 
                return parser.parseMove(moveList.remove(0));
