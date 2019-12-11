@@ -1,5 +1,7 @@
 package project.pandemie;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import project.pandemie.api.ILogic;
 import project.pandemie.api.IParser;
 import project.pandemie.data.Move;
@@ -25,13 +27,27 @@ public class Main {
 
         init(args);
 
+        /*
+        Post ROUTE
+         */
         post("/", (req, res) -> {
 
             if (moveList.isEmpty()) {
 
+                /*
+                Read req and translate it into a ROUND object
+                 */
                 Round r = parser.parseRound(req.body());
 
+                /*
+                We don't save states so it creates a new Actor
+                 */
                 ILogic logic = new Actor();
+
+                /*
+                moveList contains all moves INCLUDING
+                endRound
+                 */
                 moveList = logic.getMoves(r);
 
                 //Debug Output
@@ -41,9 +57,18 @@ public class Main {
                 System.out.println(parser.parseMove(moveList.get(0)));
                 System.out.println(r.getCities().iterator().next().toString());
 
-
+                /*
+                Reply with a move, removing it from the list.
+                 */
                 return parser.parseMove(moveList.remove(0));
             }
+
+            /*
+            TODO: Since we can observe the effect of a move
+                  in the same round, it might be better to process
+                  only one move at a time, and feed the input back into
+                  our logic actor.
+             */
 
             return parser.parseMove(moveList.remove(0));
 
@@ -51,17 +76,22 @@ public class Main {
 
     }
 
-
+    /*
+    Initialization before we start the ROUTE
+     */
     private static void init(String[] args) {
-
+        /*
+        Handles cmd arguments
+        TODO: Move into own section/class
+         */
         if (args.length > 1 && args[0].equals("-p")) {
-                Integer p = null;
-                try {
-                    p = Integer.parseInt(args[1]);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-                if(null != p){
+            Integer p = null;
+            try {
+                p = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            if (null != p) {
                 PORT = p;
 
             }
@@ -70,8 +100,15 @@ public class Main {
 
         port(PORT);
 
+        Logger log = LoggerFactory.getLogger("Pandemie");
+
+
         parser = new Parser();
 
+        /*
+        TODO: Create folder structure for logging?
+        TODO: Move into Logging class
+         */
         file = new File("log.txt");
         if (!file.exists()) {
             try {
@@ -80,8 +117,6 @@ public class Main {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Setup Done");
-
+        log.info("Setup Done");
     }
 }
