@@ -10,10 +10,6 @@ public class Round {
     private Collection<City> cities;
     private Collection<Events> events;
 
-    public Round() {
-
-    }
-
     public void setOutcome(String outcome){
         this.outcome = outcome;
     }
