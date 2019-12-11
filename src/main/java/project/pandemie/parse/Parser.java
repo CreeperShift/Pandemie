@@ -4,8 +4,8 @@ import com.google.gson.*;
 import project.pandemie.api.IParser;
 import project.pandemie.data.City;
 import project.pandemie.data.Events;
-import project.pandemie.data.Move;
 import project.pandemie.data.Round;
+import project.pandemie.data.Move;
 
 import java.util.*;
 
