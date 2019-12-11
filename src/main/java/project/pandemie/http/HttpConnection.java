@@ -1,23 +1,21 @@
 package project.pandemie.http;
 
+import com.google.gson.Gson;
 import project.pandemie.api.IConnection;
-import spark.Spark;
+
+import static spark.Spark.*;
 
 
 public class HttpConnection implements IConnection {
 
     private String buffer;
 
-    public HttpConnection(){
-        Spark.port(50123);
-        connect();
-    }
 
     private void connect(){
 
-        Spark.post("/", (req, res) -> {
+        post("/", (req, res) -> {
             buffer = req.body();
-            return null;
+            return "test";
         });
     }
 
@@ -25,10 +23,9 @@ public class HttpConnection implements IConnection {
     @Override
     public boolean send(final String m) {
 
-        Spark.post("/", (req, res) -> {
-            return m;
-        });
-        Spark.post("/", (req, res) -> {
+        post("/", (req, res) -> "test");
+
+        post("/", (req, res) -> {
             buffer = req.body();
             return null;
         });
