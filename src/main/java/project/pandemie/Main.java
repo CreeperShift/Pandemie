@@ -7,7 +7,6 @@ import project.pandemie.data.Round;
 import project.pandemie.logic.Actor;
 import project.pandemie.parse.Parser;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import static spark.Spark.*;
 public class Main {
 
     static int PORT = 50123;
-    static File file;
     static List<Move> moveList = new ArrayList<>();
     static IParser parser;
 
