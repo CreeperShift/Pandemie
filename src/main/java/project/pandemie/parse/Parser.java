@@ -13,17 +13,15 @@ public class Parser implements IParser {
     @Override
     public Round parseRound(String s) {
 
-        Round round = new Round();
-        Gson gson = new Gson(); //GoogleJson to convert between java & json
         JsonObject job = JsonParser.parseString(s).getAsJsonObject();
 
-        round.setOutcome(job.get("outcome").getAsString());
-        round.setRound(job.get("round").getAsInt());
-        round.setPoints(job.get("points").getAsInt());
-        round.setCities(mapCities(job));
-        round.setEvents(mapEvents(job));
+        String outcome = job.get("outcome").getAsString();
+        int round =  job.get("round").getAsInt();
+        int points = job.get("points").getAsInt();
+        Map<String, City> cities = mapCities(job);
+        Collection<Events> events = mapEvents(job);
 
-        return round;
+        return new Round.Builder(round, outcome).withPoints(points).withCities(cities).withEvents(events).build();
     }
 
     @Override
