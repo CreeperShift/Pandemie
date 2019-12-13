@@ -87,6 +87,8 @@ public class Round {
         return events;
     }
 
+    public int getWorldPopulation() {return worldPopulation;}
+
     @Override
     public String toString() {
         return "Round{" +
