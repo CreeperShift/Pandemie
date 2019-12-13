@@ -1,13 +1,14 @@
 package project.pandemie.data;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class Round {
 
     private String outcome;
     private int round;
     private int points;
-    private Collection<City> cities;
+    private Map<String, City> cities;
     private Collection<Events> events;
 
     public void setOutcome(String outcome){
@@ -22,7 +23,7 @@ public class Round {
         this.points = points;
     }
 
-    public void setCities(Collection<City> cities) {
+    public void setCities(Map<String, City> cities) {
         this.cities = cities;
     }
 
@@ -42,7 +43,7 @@ public class Round {
         return points;
     }
 
-    public Collection<City> getCities() {
+    public Map<String, City> getCities() {
         return cities;
     }
 

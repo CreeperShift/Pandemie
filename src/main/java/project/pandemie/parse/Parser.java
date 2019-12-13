@@ -31,7 +31,7 @@ public class Parser implements IParser {
         return new Gson().toJson(m);
     }
 
-    private Collection<City> mapCities(JsonObject job){
+    private Map<String, City> mapCities(JsonObject job){
 
         Gson gson = new Gson();
         JsonObject cit = job.getAsJsonObject("cities");
@@ -39,11 +39,11 @@ public class Parser implements IParser {
         Map<String, JsonObject> map = new HashMap<>();
         Set<Map.Entry<String, JsonElement>> entrySet = cit.entrySet();
 
-        List<City> cityList = new ArrayList<>(List.of());
+        Map<String, City> cityList = new HashMap<>();
 
         for(Map.Entry<String,JsonElement> entry : entrySet) {
             City c = gson.fromJson(entry.getValue(), City.class);
-            cityList.add(c);
+            cityList.put(c.getName(), c);
         }
         return cityList;
     }
