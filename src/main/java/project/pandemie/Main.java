@@ -50,13 +50,6 @@ public class Main {
                  */
                 moveList = logic.getMoves(r);
 
-                //Debug Output
-                System.out.println(r.getRound());
-                System.out.println(r.getOutcome());
-                System.out.println(r.getPoints());
-                System.out.println(parser.parseMove(moveList.get(0)));
-                System.out.println(r.getCities().iterator().next().toString());
-
                 /*
                 Reply with a move, removing it from the list.
                  */
@@ -99,24 +92,6 @@ public class Main {
         }
 
         port(PORT);
-
-        Logger log = LoggerFactory.getLogger("Pandemie");
-
-
         parser = new Parser();
-
-        /*
-        TODO: Create folder structure for logging?
-        TODO: Move into Logging class
-         */
-        file = new File("log.txt");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        log.info("Setup Done");
     }
 }

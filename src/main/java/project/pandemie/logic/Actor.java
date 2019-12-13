@@ -20,6 +20,13 @@ public class Actor implements ILogic {
             list.add(new Move.Builder("closeAirport").withCity("Abuja").withRounds(2).build());
         }
 
+        //Debug Output
+        System.out.println(r.getRound());
+        System.out.println(r.getOutcome());
+        System.out.println(r.getPoints());
+        System.out.println(list.get(0));
+        System.out.println(r.getCities().iterator().next().toString());
+
         list.add(new Move.Builder("endRound").build());
         return list;
     }

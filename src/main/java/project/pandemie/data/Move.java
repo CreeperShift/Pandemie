@@ -73,4 +73,15 @@ public class Move {
 
     }
 
+    @Override
+    public String toString() {
+        return "Move{" +
+                "type='" + type + '\'' +
+                ", city='" + city + '\'' +
+                ", rounds=" + rounds +
+                ", fromCity='" + fromCity + '\'' +
+                ", toCity='" + toCity + '\'' +
+                ", pathogen='" + pathogen + '\'' +
+                '}';
+    }
 }
