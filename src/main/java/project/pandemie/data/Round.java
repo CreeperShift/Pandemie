@@ -5,31 +5,67 @@ import java.util.Map;
 
 public class Round {
 
+    public static class Builder{
+        private int round;
+        private String outcome;
+        private int points;
+        private Map<String, City> cities;
+        private Collection<Events> events;
+
+        public Builder(int round, String outcome){
+            this.round = round;
+            this.outcome = outcome;
+        }
+
+        public Builder withPoints(int points){
+            this.points = points;
+            return this;
+        }
+
+        public Builder withCities(Map<String, City> cities){
+            this.cities = cities;
+            return this;
+        }
+
+        public Builder withEvents(Collection<Events> events){
+            this.events = events;
+            return this;
+        }
+
+        public Round build(){
+            Round r = new Round();
+            r.round = round;
+            r.outcome = outcome;
+            r.points = points;
+            r.cities = cities;
+            r.events = events;
+
+            /*
+            Calculate world population
+             */
+            int pop = 0;
+            for(City c : cities.values()){
+                pop += c.getPopulation();
+            }
+            r.worldPopulation = pop;
+
+
+            return r;
+        }
+
+    }
+
+    private Round(){
+
+    }
+
     private String outcome;
     private int round;
     private int points;
     private Map<String, City> cities;
     private Collection<Events> events;
+    private int worldPopulation;
 
-    public void setOutcome(String outcome){
-        this.outcome = outcome;
-    }
-
-    public void setRound(int round) {
-        this.round = round;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public void setCities(Map<String, City> cities) {
-        this.cities = cities;
-    }
-
-    public void setEvents(Collection<Events> events) {
-        this.events = events;
-    }
 
     public String getOutcome() {
         return outcome;
