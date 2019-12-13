@@ -1,7 +1,5 @@
 package project.pandemie;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import project.pandemie.api.ILogic;
 import project.pandemie.api.IParser;
 import project.pandemie.data.Move;
@@ -10,7 +8,6 @@ import project.pandemie.logic.Actor;
 import project.pandemie.parse.Parser;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
