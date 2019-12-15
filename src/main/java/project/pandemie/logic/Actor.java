@@ -21,17 +21,18 @@ public class Actor implements ILogic {
             list.add(new Move.Builder("closeAirport").withCity("Abuja").withRounds(2).build());
         }
 
-        //Debug Output
-        System.out.println(r.getRound());
-        System.out.println(r.getOutcome());
-        System.out.println(r.getPoints());
-        System.out.println(r.getCities().get("Abuja"));
         WriterFile write =new WriterFile("D:/PandemieLog.txt", true);
         try{
             write.writeCity(r.getCities().get("Abuja"));
         }catch(Exception e){
             System.out.print(e);
         }
+
+        //Debug Output
+        System.out.println(r.getRound());
+        System.out.println(r.getOutcome());
+        System.out.println(r.getPoints());
+        System.out.println(r.getCities().get("Abuja"));
 
         list.add(new Move.Builder("endRound").build());
         return list;
