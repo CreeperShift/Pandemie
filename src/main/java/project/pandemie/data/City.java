@@ -16,6 +16,8 @@ public class City {
     private String awareness;
     private Events[] events;
 
+    private int popInfected;
+
     public String getName() {
         return name;
     }
@@ -56,6 +58,10 @@ public class City {
         return events;
     }
 
+    public int getPopInfected(){
+        return popInfected;
+    }
+
     @Override
     public String toString() {
         return "City{" +
@@ -70,6 +76,21 @@ public class City {
                 ", awareness='" + awareness + '\'' +
                 ", events=" + Arrays.toString(events) +
                 '}';
+    }
+
+    public boolean hasEvents(){
+        return getEvents() != null && getEvents().length > 0;
+    }
+
+    public void calculateInfected(){
+
+        if(hasEvents()){
+            for (Events events : getEvents()){
+                if(events.getPathogen() != null){
+                   popInfected = (int)(population * events.getPrevalence());
+                }
+            }
+        }
     }
 
     @Override
