@@ -41,6 +41,7 @@ public class Parser implements IParser {
 
         for(Map.Entry<String,JsonElement> entry : entrySet) {
             City c = gson.fromJson(entry.getValue(), City.class);
+            c.init();
             cityList.put(c.getName(), c);
         }
         return cityList;
