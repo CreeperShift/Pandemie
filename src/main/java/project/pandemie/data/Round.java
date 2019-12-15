@@ -41,6 +41,9 @@ public class Round {
             r.cities = cities;
             r.events = events;
 
+            /*
+            Doesnt really work atm :/
+             */
             r.worldPopulation = calculatePopulation();
             r.infectedPopulation = calculateInfected();
 
