@@ -16,7 +16,24 @@ public class City {
     private String awareness;
     private Events[] events;
 
+    private boolean isInfected = false;
     private int popInfected;
+
+    public void init(){
+        checkInfected();
+        calculateInfected();
+    }
+
+    private void checkInfected() {
+        if (hasEvents()) {
+            for (Events events : this.getEvents()) {
+                if (events.getPathogen() != null) {
+                    isInfected = true;
+                    break;
+                }
+            }
+        }
+    }
 
     public String getName() {
         return name;
@@ -62,6 +79,10 @@ public class City {
         return popInfected;
     }
 
+    public boolean isInfected(){
+        return isInfected;
+    }
+
     @Override
     public String toString() {
         return "City{" +
@@ -83,7 +104,7 @@ public class City {
     }
 
     public void calculateInfected(){
-        if(hasEvents()){
+        if(isInfected){
             for (Events events : getEvents()){
                 if(events.getPathogen() != null){
                    popInfected = (int)(population * events.getPrevalence());

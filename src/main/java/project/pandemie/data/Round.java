@@ -40,10 +40,6 @@ public class Round {
             r.points = points;
             r.cities = cities;
             r.events = events;
-
-            /*
-            Doesnt really work atm :/
-             */
             r.worldPopulation = calculatePopulation();
             r.infectedPopulation = calculateInfected();
 
@@ -115,24 +111,15 @@ public class Round {
     }
 
     public float getPercentInfected() {
-        return (float) (getInfectedPopulation() / getWorldPopulation()) * 100;
+        return ((float)getInfectedPopulation() / (float)getWorldPopulation()) * 100f;
     }
 
     public Collection<City> getInfectedCities() {
         Collection<City> col = new ArrayList<City>();
 
         for (City c : cities.values()) {
-            if (c.hasEvents()) {
-                boolean hasPathogen = false;
-                for (Events events : c.getEvents()) {
-                    if (events.getPathogen() != null) {
-                        hasPathogen = true;
-                        break;
-                    }
-                }
-                if (hasPathogen) {
-                    col.add(c);
-                }
+            if (c.isInfected()){
+                col.add(c);
             }
         }
         return col;
