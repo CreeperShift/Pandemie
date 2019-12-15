@@ -3,6 +3,7 @@ package project.pandemie.logic;
 import project.pandemie.api.ILogic;
 import project.pandemie.data.Move;
 import project.pandemie.data.Round;
+import project.pandemie.data.WriterFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,12 @@ public class Actor implements ILogic {
         System.out.println(r.getOutcome());
         System.out.println(r.getPoints());
         System.out.println(r.getCities().get("Abuja"));
+        WriterFile write =new WriterFile("D:/PandemieLog.txt", true);
+        try{
+            write.writeCity(r.getCities().get("Abuja"));
+        }catch(Exception e){
+            System.out.print(e);
+        }
 
         list.add(new Move.Builder("endRound").build());
         return list;

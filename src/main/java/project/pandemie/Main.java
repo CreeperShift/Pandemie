@@ -12,7 +12,7 @@ import java.util.List;
 
 import static spark.Spark.*;
 
-public class Main {
+public class  Main {
 
     static int PORT = 50123;
     static List<Move> moveList = new ArrayList<>();
