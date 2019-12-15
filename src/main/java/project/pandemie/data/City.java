@@ -38,20 +38,20 @@ public class City {
         return connections;
     }
 
-    public String getEconomy() {
-        return economy;
+    public int getEconomy() {
+        return convertValues(economy);
     }
 
-    public String getGovernment() {
-        return government;
+    public int getGovernment() {
+        return convertValues(government);
     }
 
-    public String getHygiene() {
-        return hygiene;
+    public int getHygiene() {
+        return convertValues(hygiene);
     }
 
-    public String getAwareness() {
-        return awareness;
+    public int getAwareness() {
+        return convertValues(awareness);
     }
 
     public Events[] getEvents() {
@@ -83,7 +83,6 @@ public class City {
     }
 
     public void calculateInfected(){
-
         if(hasEvents()){
             for (Events events : getEvents()){
                 if(events.getPathogen() != null){
@@ -91,6 +90,17 @@ public class City {
                 }
             }
         }
+    }
+
+    private int convertValues(String value){
+        switch(value){
+            case "--" : return -2;
+            case "-" : return -1;
+            case "0" : return 0;
+            case "+" : return 1;
+            case "++" : return 2;
+        }
+        return 0;
     }
 
     @Override
