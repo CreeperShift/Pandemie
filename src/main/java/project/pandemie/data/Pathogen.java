@@ -1,5 +1,7 @@
 package project.pandemie.data;
 
+import project.pandemie.util.ConversionHelper;
+
 public class Pathogen {
 
     private String name;
@@ -12,20 +14,20 @@ public class Pathogen {
         return name;
     }
 
-    public String getInfectivity() {
-        return infectivity;
+    public int getInfectivity() {
+        return ConversionHelper.stringValueToNumeric(infectivity);
     }
 
-    public String getMobility() {
-        return mobility;
+    public int getMobility() {
+        return ConversionHelper.stringValueToNumeric(mobility);
     }
 
-    public String getDuration() {
-        return duration;
+    public int getDuration() {
+        return ConversionHelper.stringValueToNumeric(duration);
     }
 
-    public String getLethality() {
-        return lethality;
+    public int getLethality() {
+        return ConversionHelper.stringValueToNumeric(lethality);
     }
 
     @Override

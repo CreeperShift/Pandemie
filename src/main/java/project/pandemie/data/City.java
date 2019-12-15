@@ -1,5 +1,7 @@
 package project.pandemie.data;
 
+import project.pandemie.util.ConversionHelper;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -56,19 +58,19 @@ public class City {
     }
 
     public int getEconomy() {
-        return convertValues(economy);
+        return ConversionHelper.stringValueToNumeric(economy);
     }
 
     public int getGovernment() {
-        return convertValues(government);
+        return ConversionHelper.stringValueToNumeric(government);
     }
 
     public int getHygiene() {
-        return convertValues(hygiene);
+        return ConversionHelper.stringValueToNumeric(hygiene);
     }
 
     public int getAwareness() {
-        return convertValues(awareness);
+        return ConversionHelper.stringValueToNumeric(awareness);
     }
 
     public Events[] getEvents() {
@@ -111,20 +113,6 @@ public class City {
                 }
             }
         }
-    }
-
-    /*
-
-     */
-    private int convertValues(String value){
-        switch(value){
-            case "--" : return -2;
-            case "-" : return -1;
-            case "0" : return 0;
-            case "+" : return 1;
-            case "++" : return 2;
-        }
-        return 0;
     }
 
     @Override
