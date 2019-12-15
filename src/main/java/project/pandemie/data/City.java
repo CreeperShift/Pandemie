@@ -20,10 +20,16 @@ public class City {
 
     private boolean isInfected = false;
     private int popInfected;
+    private int score;
 
     public void init(){
         checkInfected();
         calculateInfected();
+        calculateScore();
+    }
+
+    private void calculateScore() {
+        score += getEconomy() + getGovernment() + getAwareness() + getHygiene();
     }
 
     private void checkInfected() {
@@ -84,6 +90,8 @@ public class City {
     public boolean isInfected(){
         return isInfected;
     }
+
+    public int getScore(){return score;}
 
     @Override
     public String toString() {

@@ -1,7 +1,10 @@
 package project.pandemie.data;
 
+import project.pandemie.util.SortByCityScore;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 public class Round {
@@ -111,17 +114,27 @@ public class Round {
     }
 
     public float getPercentInfected() {
-        return ((float)getInfectedPopulation() / (float)getWorldPopulation()) * 100f;
+        return ((float) getInfectedPopulation() / (float) getWorldPopulation()) * 100f;
     }
 
     public Collection<City> getInfectedCities() {
-        Collection<City> col = new ArrayList<City>();
-
+        Collection<City> col = new ArrayList<>();
         for (City c : cities.values()) {
-            if (c.isInfected()){
+            if (c.isInfected()) {
                 col.add(c);
             }
         }
+        return col;
+    }
+
+    public Collection<City> getCityByScore(boolean ascending) {
+        ArrayList<City> col = new ArrayList<>(cities.values());
+
+        col.sort(new SortByCityScore());
+        if (ascending) {
+            col.sort(Collections.reverseOrder());
+        }
+
         return col;
     }
 
