@@ -1,38 +1,39 @@
 package project.pandemie.data;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
 public class Round {
 
-    public static class Builder{
+    public static class Builder {
         private int round;
         private String outcome;
         private int points;
         private Map<String, City> cities;
         private Collection<Events> events;
 
-        public Builder(int round, String outcome){
+        public Builder(int round, String outcome) {
             this.round = round;
             this.outcome = outcome;
         }
 
-        public Builder withPoints(int points){
+        public Builder withPoints(int points) {
             this.points = points;
             return this;
         }
 
-        public Builder withCities(Map<String, City> cities){
+        public Builder withCities(Map<String, City> cities) {
             this.cities = cities;
             return this;
         }
 
-        public Builder withEvents(Collection<Events> events){
+        public Builder withEvents(Collection<Events> events) {
             this.events = events;
             return this;
         }
 
-        public Round build(){
+        public Round build() {
             Round r = new Round();
             r.round = round;
             r.outcome = outcome;
@@ -40,22 +41,36 @@ public class Round {
             r.cities = cities;
             r.events = events;
 
-            /*
-            Calculate world population
-             */
-            int pop = 0;
-            for(City c : cities.values()){
-                pop += c.getPopulation();
-            }
-            r.worldPopulation = pop;
-
+            r.worldPopulation = calculatePopulation();
+            r.infectedPopulation = calculateInfected();
 
             return r;
         }
 
+        /*
+        Calculate world population
+        */
+        private int calculatePopulation() {
+            int pop = 0;
+            for (City c : cities.values()) {
+                pop += c.getPopulation();
+            }
+            return pop;
+        }
+
+        /*
+        Calculate infected world population
+        */
+        private int calculateInfected() {
+            int pop = 0;
+            for (City c : cities.values()) {
+                pop += c.getInfectedPopulation();
+            }
+            return pop;
+        }
     }
 
-    private Round(){
+    private Round() {
 
     }
 
@@ -65,6 +80,7 @@ public class Round {
     private Map<String, City> cities;
     private Collection<Events> events;
     private int worldPopulation;
+    private int infectedPopulation;
 
 
     public String getOutcome() {
@@ -87,7 +103,37 @@ public class Round {
         return events;
     }
 
-    public int getWorldPopulation() {return worldPopulation;}
+    public int getWorldPopulation() {
+        return worldPopulation;
+    }
+
+    public int getInfectedPopulation() {
+        return infectedPopulation;
+    }
+
+    public float getPercentInfected() {
+        return (float) (getInfectedPopulation() / getWorldPopulation()) * 100;
+    }
+
+    public Collection<City> getInfectedCities() {
+        Collection<City> col = new ArrayList<City>();
+
+        for (City c : cities.values()) {
+            if (c.hasEvents()) {
+                boolean hasPathogen = false;
+                for (Events events : c.getEvents()) {
+                    if (events.getPathogen() != null) {
+                        hasPathogen = true;
+                        break;
+                    }
+                }
+                if (hasPathogen) {
+                    col.add(c);
+                }
+            }
+        }
+        return col;
+    }
 
     @Override
     public String toString() {
@@ -95,8 +141,9 @@ public class Round {
                 "outcome='" + outcome + '\'' +
                 ", round=" + round +
                 ", points=" + points +
-                ", cities=" + cities +
-                ", events=" + events +
+                ", worldPopulation=" + worldPopulation +
+                ", infectedPopulation=" + infectedPopulation +
+                ", percentInfected=" + getPercentInfected() +
                 '}';
     }
 }

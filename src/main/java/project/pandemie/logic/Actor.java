@@ -21,10 +21,7 @@ public class Actor implements ILogic {
         }
 
         //Debug Output
-        System.out.println(r.getRound());
-        System.out.println(r.getOutcome());
-        System.out.println(r.getPoints());
-        System.out.println(r.getCities().get("Abuja"));
+        System.out.println(r);
 
         list.add(new Move.Builder("endRound").build());
         return list;

@@ -58,7 +58,7 @@ public class City {
         return events;
     }
 
-    public int getPopInfected(){
+    public int getInfectedPopulation(){
         return popInfected;
     }
 
@@ -70,10 +70,10 @@ public class City {
                 ", longitude=" + longitude +
                 ", population=" + population +
                 ", connections=" + Arrays.toString(connections) +
-                ", economy='" + economy + '\'' +
-                ", government='" + government + '\'' +
-                ", hygiene='" + hygiene + '\'' +
-                ", awareness='" + awareness + '\'' +
+                ", economy='" + getEconomy()+ '\'' +
+                ", government='" + getGovernment() + '\'' +
+                ", hygiene='" + getHygiene() + '\'' +
+                ", awareness='" + getAwareness() + '\'' +
                 ", events=" + Arrays.toString(events) +
                 '}';
     }
@@ -92,6 +92,9 @@ public class City {
         }
     }
 
+    /*
+
+     */
     private int convertValues(String value){
         switch(value){
             case "--" : return -2;
