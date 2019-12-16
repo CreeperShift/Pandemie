@@ -10,7 +10,7 @@ public class ConversionHelper {
         switch(value){
             case "--" : return -2;
             case "-" : return -1;
-            case "0" : return 0;
+            case "o" : return 0;
             case "+" : return 1;
             case "++" : return 2;
         }
