@@ -33,7 +33,113 @@ public class Main {
         Service http = ignite().port(80).threadPool(20);
         // root is 'src/main/resources', so put files in 'src/main/resources/public'
         http.staticFiles.location("/public"); // Static files
-        http.get("/test", (q,a) -> "Hello");
+        http.get("/test.json", (q,a) -> {
+
+            return "{\n" +
+                    "  \"cols\": [\n" +
+                    "    {\n" +
+                    "      \"id\": \"\",\n" +
+                    "      \"label\": \"Topping\",\n" +
+                    "      \"pattern\": \"\",\n" +
+                    "      \"type\": \"string\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"id\": \"\",\n" +
+                    "      \"label\": \"Slices\",\n" +
+                    "      \"pattern\": \"\",\n" +
+                    "      \"type\": \"number\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"id\": \"\",\n" +
+                    "      \"label\": \"Slices2\",\n" +
+                    "      \"pattern\": \"\",\n" +
+                    "      \"type\": \"number\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"rows\": [\n" +
+                    "    {\n" +
+                    "      \"c\": [\n" +
+                    "        {\n" +
+                    "          \"v\": \"Mushrooms\",\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 3,\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 1,\n" +
+                    "          \"f\": null\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"c\": [\n" +
+                    "        {\n" +
+                    "          \"v\": \"Onions\",\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 1,\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 2,\n" +
+                    "          \"f\": null\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"c\": [\n" +
+                    "        {\n" +
+                    "          \"v\": \"Olives\",\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 1,\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 5,\n" +
+                    "          \"f\": null\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"c\": [\n" +
+                    "        {\n" +
+                    "          \"v\": \"Zucchini\",\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 1,\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 7,\n" +
+                    "          \"f\": null\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"c\": [\n" +
+                    "        {\n" +
+                    "          \"v\": \"Pepperoni\",\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 2,\n" +
+                    "          \"f\": null\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "          \"v\": 3,\n" +
+                    "          \"f\": null\n" +
+                    "        }\n" +
+                    "      ]\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}";
+        });
 
     }
 
