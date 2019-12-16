@@ -31,4 +31,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.6'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    // https://mvnrepository.com/artifact/org.knowm.xchart/xchart
+    compile group: 'org.knowm.xchart', name: 'xchart', version: '3.6.0'
 }
