@@ -22,7 +22,7 @@ public class City {
     private int popInfected;
     private int score;
 
-    public void init(){
+    public void init() {
         checkInfected();
         calculateInfected();
         calculateScore();
@@ -83,41 +83,58 @@ public class City {
         return events;
     }
 
-    public int getInfectedPopulation(){
+    public int getInfectedPopulation() {
         return popInfected;
     }
 
-    public boolean isInfected(){
+    public boolean isInfected() {
         return isInfected;
     }
 
-    public int getScore(){return score;}
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+
+    }
+
+//    @Override
+//    public String toString() {
+//        return "City{" +
+//                "name='" + name + '\'' +
+//                ", latitude=" + latitude +
+//                ", longitude=" + longitude +
+//                ", population=" + population +
+//                ", connections=" + Arrays.toString(connections) +
+//                ", economy='" + getEconomy()+ '\'' +
+//                ", government='" + getGovernment() + '\'' +
+//                ", hygiene='" + getHygiene() + '\'' +
+//                ", awareness='" + getAwareness() + '\'' +
+//                ", events=" + Arrays.toString(events) +
+//                '}';
+//    }
 
     @Override
     public String toString() {
         return "City{" +
                 "name='" + name + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
+                ", score=" + score + '\'' +
+                ", infected?=" + isInfected + '\'' +
                 ", population=" + population +
-                ", connections=" + Arrays.toString(connections) +
-                ", economy='" + getEconomy()+ '\'' +
-                ", government='" + getGovernment() + '\'' +
-                ", hygiene='" + getHygiene() + '\'' +
-                ", awareness='" + getAwareness() + '\'' +
-                ", events=" + Arrays.toString(events) +
                 '}';
     }
 
-    public boolean hasEvents(){
+    public boolean hasEvents() {
         return getEvents() != null && getEvents().length > 0;
     }
 
-    public void calculateInfected(){
-        if(isInfected){
-            for (Events events : getEvents()){
-                if(events.getPathogen() != null){
-                   popInfected = (int)(population * events.getPrevalence());
+    public void calculateInfected() {
+        if (isInfected) {
+            for (Events events : getEvents()) {
+                if (events.getPathogen() != null) {
+                    popInfected = (int) (population * events.getPrevalence());
                 }
             }
         }

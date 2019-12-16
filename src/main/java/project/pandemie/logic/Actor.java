@@ -22,6 +22,7 @@ public class Actor implements ILogic {
 
         //Debug Output
         System.out.println(r);
+        System.out.println(r.getCityByScore(false));
 
         list.add(new Move.Builder("endRound").build());
         return list;

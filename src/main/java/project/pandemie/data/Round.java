@@ -113,6 +113,16 @@ public class Round {
         return infectedPopulation;
     }
 
+    public int getBiggestPopulation() {
+        int pop = 0;
+        for (City c : cities.values()) {
+            if (c.getPopulation() > pop) {
+                pop = c.getPopulation();
+            }
+        }
+        return pop;
+    }
+
     public float getPercentInfected() {
         return ((float) getInfectedPopulation() / (float) getWorldPopulation()) * 100f;
     }
@@ -127,11 +137,38 @@ public class Round {
         return col;
     }
 
-    public Collection<City> getCityByScore(boolean ascending) {
+    public Collection<City> getCityByScore(boolean descending) {
+        for (City c : cities.values()) {
+
+            /*
+            Smaller cities are less important
+             */
+            if (c.getPopulation() < getBiggestPopulation() * 0.6) {
+                c.setScore(c.getScore() + 1);
+            } else if (c.getPopulation() < getBiggestPopulation() * 0.3) {
+                c.setScore(c.getScore() + 2);
+            }
+
+            /*
+            Cities that are not infected yet are more important
+             */
+            if (!c.isInfected()) {
+                c.setScore(c.getScore() - 2);
+            } else {
+                /*
+                Cities with low infection % are more at risk
+                 */
+                float infected = (((float) c.getInfectedPopulation()) / ((float) c.getPopulation()) * 100f);
+                if (infected < 20) {
+                    c.setScore(c.getScore() - 2);
+                }
+            }
+        }
+
         ArrayList<City> col = new ArrayList<>(cities.values());
 
         col.sort(new SortByCityScore());
-        if (ascending) {
+        if (descending) {
             col.sort(Collections.reverseOrder());
         }
 
