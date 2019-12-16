@@ -1,7 +1,5 @@
 package project.pandemie.data;
 
-import project.pandemie.util.SortByCityScore;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -167,7 +165,7 @@ public class Round {
 
         ArrayList<City> col = new ArrayList<>(cities.values());
 
-        col.sort(new SortByCityScore());
+        col.sort((a, b)-> a.getScore() - b.getScore());
         if (descending) {
             col.sort(Collections.reverseOrder());
         }
