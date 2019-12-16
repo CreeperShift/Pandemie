@@ -7,7 +7,9 @@ import org.knowm.xchart.XYChartBuilder;
 import project.pandemie.data.City;
 import project.pandemie.data.Round;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Visualization{
 
@@ -28,8 +30,11 @@ public class Visualization{
 
     private void genVis() {
         ArrayList<City> infected = (ArrayList<City>) rounds.get(rounds.size()-1).getInfectedCities();
-        for (City c: infected) {
+       /* for (City c: infected) {
             genCity(c);
+        }*/
+        for (int i = 0; i<infected.size()&&i<10;i++){
+            genCity(infected.get(i));
         }
        //genCity(rounds.get(1).getCities().get("Berlin"));
     }
@@ -52,23 +57,26 @@ public class Visualization{
             pop.add(city.getPopulation());
             inf.add(city.getInfectedPopulation());
         }
-        disCityAt(round,hygiene,"Hygiene", c.getName());
-        disCityAt(round,economy,"Economy", c.getName());
-        disCityAt(round,government,"Government", c.getName());
-        disCityAt(round,awareness,"Awareness", c.getName());
-        disCityPop(round,pop, inf,c.getName());
+        ArrayList charts = new ArrayList();
+        charts.add(disCityAt(round, hygiene, "Hygiene", c.getName()));
+        charts.add(disCityAt(round,economy,"Economy", c.getName()));
+        charts.add(disCityAt(round,government,"Government", c.getName()));
+        charts.add(disCityAt(round,awareness,"Awareness", c.getName()));
+        charts.add(disCityPop(round,pop, inf,c.getName()));
+        new SwingWrapper<XYChart>(charts).displayChartMatrix();
+
     }
 
-    private void disCityAt(ArrayList round, ArrayList y, String name, String city){
+    private XYChart disCityAt(ArrayList round, ArrayList y, String name, String city){
         XYChart chart = new XYChartBuilder().title(city).yAxisTitle(name).xAxisTitle("Round").build();
         chart.addSeries(name,round,y);
-        //XYChart chart = QuickChart.getChart(name,"Round",name,name,round,y);
-        new SwingWrapper(chart).displayChart();
+        return chart;
+        //new SwingWrapper(chart).displayChart();
     }
-    private void disCityPop(ArrayList round, ArrayList pop, ArrayList inf, String city){
+    private XYChart disCityPop(ArrayList round, ArrayList pop, ArrayList inf, String city){
         XYChart chart = new XYChartBuilder().title(city).yAxisTitle("Population").xAxisTitle("Round").build();
         chart.addSeries("Population",round,pop);
         chart.addSeries("Infected",round,inf);
-        new SwingWrapper(chart).displayChart();
+        return chart;
     }
 }
