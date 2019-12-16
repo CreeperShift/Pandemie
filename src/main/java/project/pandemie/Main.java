@@ -6,11 +6,12 @@ import project.pandemie.data.Move;
 import project.pandemie.data.Round;
 import project.pandemie.logic.Actor;
 import project.pandemie.parse.Parser;
+import spark.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static spark.Spark.*;
+import static spark.Service.ignite;
 
 public class Main {
 
@@ -19,13 +20,48 @@ public class Main {
     static IParser parser;
 
     public static void main(String[] args) {
+        parser = new Parser();
 
-        init(args);
+        igniteFirstSpark(args);
+        igniteSecondSpark();
 
-        /*
+
+    }
+
+    private static void igniteSecondSpark(){
+
+        Service http = ignite().port(80).threadPool(20);
+        // root is 'src/main/resources', so put files in 'src/main/resources/public'
+        http.staticFiles.location("/public"); // Static files
+        http.get("/test", (q,a) -> "Hello");
+
+    }
+
+    private static void igniteFirstSpark(String[] args) {
+
+                /*
+        Handles cmd arguments
+        TODO: Move into own section/class
+         */
+        if (args.length > 1 && args[0].equals("-p")) {
+            Integer p = null;
+            try {
+                p = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            if (null != p) {
+                PORT = p;
+
+            }
+
+        }
+        Service http = ignite().port(PORT).threadPool(20);
+
+          /*
         Post ROUTE
          */
-        post("/", (req, res) -> {
+        http.post("/", (req, res) -> {
 
             if (moveList.isEmpty()) {
 
@@ -62,31 +98,5 @@ public class Main {
 
         });
 
-    }
-
-    /*
-    Initialization before we start the ROUTE
-     */
-    private static void init(String[] args) {
-        /*
-        Handles cmd arguments
-        TODO: Move into own section/class
-         */
-        if (args.length > 1 && args[0].equals("-p")) {
-            Integer p = null;
-            try {
-                p = Integer.parseInt(args[1]);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            if (null != p) {
-                PORT = p;
-
-            }
-
-        }
-
-        port(PORT);
-        parser = new Parser();
     }
 }
