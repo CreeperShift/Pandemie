@@ -1,62 +1,53 @@
 package project.pandemie.logging;
 
-import project.pandemie.data.City;
-
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.IOException;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
 
 public class LogWriter {
 
     private String path;
-    private boolean appendToFile = false;
+    private LogReader logReader;
+    private List<String> log;
 
-    public LogWriter(String filePath) {
-        path = filePath;
-    }
+    public LogWriter(String path) {
+        this.path = path;
 
-    public LogWriter(String filePath, boolean appendValue) {
-        path = filePath;
-        appendToFile = appendValue;
+        logReader = new LogReader(path);
+        try {
+            log = logReader.readFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
      * Schreibt den übergebenen String in ein .txt Dokument
      *
-     * @param Text übergebener String der geschrieben werden soll
+     * @param text übergebener String der geschrieben werden soll
      * @throws IOException
      */
 
-    public void writeToFile(String Text) throws IOException {
-        FileWriter file = new FileWriter(path, appendToFile);
-        PrintWriter printLine = new PrintWriter(file);
-        printLine.printf("%s" + "%n", Text);
+    public void writeToFile(String text) throws IOException {
+        for (String s : log) {
+            if (s.equalsIgnoreCase(text)) {
+                return;
+            }
+        }
+        Files.writeString(Paths.get(path), text, StandardOpenOption.APPEND);
+        readLog();
 
-        printLine.close();
     }
 
-    /**
-     * Schreibt die übergebene Stadt in ein extrenes .txt dokument
-     *
-     * @param city Stadt welche in die Datei geschrieben werden soll.
-     * @throws IOException
-     */
-    public void writeCity(City city) throws IOException {
-        FileWriter file = new FileWriter(path, appendToFile);
-        PrintWriter printLine = new PrintWriter(file);
+    private void readLog() {
+        try {
+            log = logReader.readFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        printLine.printf("Name: " + "%s" + "%n", city.getName());
-        printLine.printf("Latitude: " + "%s" + "%n", Double.toString(city.getLatitude()));
-        printLine.printf("Longitude: " + "%s" + "%n", Double.toString(city.getLongitude()));
-        printLine.printf("Population: " + "%s" + "%n", Integer.toString(city.getPopulation()));
-        printLine.printf("Connections: " + "%s" + "%n", (Object[]) city.getConnections());
-        printLine.printf("Economy: " + "%s" + "%n", city.getEconomy());
-        printLine.printf("Government: " + "%s" + "%n", city.getGovernment());
-        printLine.printf("Hygiene: " + "%s" + "%n", city.getHygiene());
-        printLine.printf("Awareness: " + "%s" + "%n", city.getAwareness());
-        printLine.printf("Events: " + "%s" + "%n", Arrays.toString(city.getEvents()));
-        printLine.printf("%n");
-        printLine.close();
     }
 }
