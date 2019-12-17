@@ -2,21 +2,26 @@ package project.pandemie;
 
 import project.pandemie.api.ILogic;
 import project.pandemie.api.IParser;
+import project.pandemie.data.Events;
 import project.pandemie.data.Move;
 import project.pandemie.data.Round;
+import project.pandemie.logging.LogWriter;
 import project.pandemie.logic.Actor;
 import project.pandemie.parse.Parser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static spark.Spark.*;
+import static spark.Spark.port;
+import static spark.Spark.post;
 
 public class  Main {
 
     static int PORT = 50123;
     static List<Move> moveList = new ArrayList<>();
     static IParser parser;
+    static LogWriter log;
 
     public static void main(String[] args) {
 
@@ -48,6 +53,9 @@ public class  Main {
                 /*
                 Reply with a move, removing it from the list.
                  */
+
+                doVisualization(r);
+
                 return parser.parseMove(moveList.remove(0));
             }
 
@@ -61,6 +69,24 @@ public class  Main {
             return parser.parseMove(moveList.remove(0));
 
         });
+
+    }
+
+    private static void doVisualization(Round r) {
+
+        if(r.getRound()==1){
+            for(Events e: r.getEvents()){
+                if(e.getPathogen() != null){
+                    try {
+                        log.writeToFile(e.getPathogen().toString());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+
+
 
     }
 
@@ -88,5 +114,6 @@ public class  Main {
 
         port(PORT);
         parser = new Parser();
+        log = new LogWriter("C:/Pandemie/pathogens.txt");
     }
 }

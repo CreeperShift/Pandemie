@@ -37,7 +37,7 @@ public class LogWriter {
                 return;
             }
         }
-        Files.writeString(Paths.get(path), text, StandardOpenOption.APPEND);
+        Files.writeString(Paths.get(path), text+System.lineSeparator(), StandardOpenOption.APPEND);
         readLog();
 
     }
