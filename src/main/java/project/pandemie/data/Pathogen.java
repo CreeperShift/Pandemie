@@ -32,12 +32,10 @@ public class Pathogen {
 
     @Override
     public String toString() {
-        return "Pathogen{" +
-                "name='" + name + '\'' +
-                ", infectivity='" + infectivity + '\'' +
-                ", mobility='" + mobility + '\'' +
-                ", duration='" + duration + '\'' +
-                ", lethality='" + lethality + '\'' +
-                '}';
+        return "Pathogen: " + name + '\'' +
+                ", infectivity='" + getInfectivity() + " | " +
+                ", mobility='" + getMobility() + " | " +
+                ", duration='" + getDuration() + " | " +
+                ", lethality='" + getLethality();
     }
 }
