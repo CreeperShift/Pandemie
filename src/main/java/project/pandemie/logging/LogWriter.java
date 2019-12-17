@@ -31,7 +31,7 @@ public class LogWriter {
      * @throws IOException
      */
 
-    public void writeToFile(String text) throws IOException {
+    public void log(String text) throws IOException {
         for (String s : log) {
             if (s.equalsIgnoreCase(text)) {
                 return;
