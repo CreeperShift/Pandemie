@@ -29,7 +29,7 @@ public class Visualization{
     }
 
     private void genVis() {
-        ArrayList<City> infected = (ArrayList<City>) rounds.get(rounds.size()-1).getInfectedCities();
+        ArrayList<City> infected = (ArrayList<City>) rounds.get(rounds.size()-1).getInfectedCitiesbyScore(false);
        /* for (City c: infected) {
             genCity(c);
         }*/
