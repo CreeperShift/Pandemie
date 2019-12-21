@@ -36,14 +36,7 @@ public class Events {
 
     @Override
     public String toString() {
-        return "Events{" +
-                "type='" + type + '\'' +
-                ", round=" + round +
-                ", pathogen=" + pathogen +
-                ", sinceRound=" + sinceRound +
-                ", prevalence=" + prevalence +
-                ", untilRound=" + untilRound +
-                '}';
+        return "Event: " + getType();
     }
 
 }

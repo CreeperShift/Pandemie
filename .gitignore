@@ -3,6 +3,4 @@
 /build/
 /build/classes/java/main/
 log.txt
-.idea
-/.idea/misc.xml
-/.idea/
+.idea/misc.xml
