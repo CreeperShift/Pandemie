@@ -1,5 +1,6 @@
 package project.pandemie.data;
 
+//TODO: Convert to Factory Pattern!
 
 public class Move {
 
