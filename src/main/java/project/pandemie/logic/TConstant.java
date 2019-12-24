@@ -10,4 +10,6 @@ public class TConstant {
 
     public static final int AIRPORT_CLOSE_ROUNDS = 2;
     public static final int CONNECTION_CLOSE_ROUNDS = 2;
+
+    public static final float MOBILITY_SPREAD_RADIUS = 500f;
 }
