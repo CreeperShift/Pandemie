@@ -45,13 +45,13 @@ public class Main {
                 /*
                 We don't save states so it creates a new Actor
                  */
-                ILogic logic = new Actor();
+                ILogic logic = new Actor(r);
 
                 /*
                 moveList contains all moves INCLUDING
                 endRound
                  */
-                moveList = logic.getMoves(r);
+                moveList = logic.getMoves();
 
                 /*
                 Reply with a move, removing it from the list.
