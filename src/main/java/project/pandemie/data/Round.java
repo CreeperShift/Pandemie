@@ -1,9 +1,6 @@
 package project.pandemie.data;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 public class Round {
 
@@ -43,6 +40,7 @@ public class Round {
             r.events = events;
             r.worldPopulation = calculatePopulation();
             r.infectedPopulation = calculateInfected();
+            r.pathogens = getPathogens();
 
             return r;
         }
@@ -68,6 +66,18 @@ public class Round {
             }
             return pop;
         }
+
+        private List<Pathogen> getPathogens() {
+            List<Pathogen> pathogenList = Collections.emptyList();
+
+            for (Events e : events) {
+                if (e.getPathogen() != null) {
+                    pathogenList.add(e.getPathogen());
+                }
+            }
+            return pathogenList;
+        }
+
     }
 
     private Round() {
@@ -81,6 +91,7 @@ public class Round {
     private Collection<Events> events;
     private int worldPopulation;
     private int infectedPopulation;
+    private List<Pathogen> pathogens;
 
 
     public String getOutcome() {
@@ -109,6 +120,10 @@ public class Round {
 
     public int getInfectedPopulation() {
         return infectedPopulation;
+    }
+
+    public Collection<Pathogen> getPathogens() {
+        return pathogens;
     }
 
     public int getBiggestPopulation() {
@@ -165,7 +180,7 @@ public class Round {
 
         ArrayList<City> col = new ArrayList<>(cities.values());
 
-        col.sort((a, b)-> a.getScore() - b.getScore());
+        col.sort((a, b) -> a.getScore() - b.getScore());
         if (descending) {
             col.sort(Collections.reverseOrder());
         }
