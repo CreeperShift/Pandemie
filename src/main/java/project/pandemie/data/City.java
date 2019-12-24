@@ -2,7 +2,6 @@ package project.pandemie.data;
 
 import project.pandemie.util.ConversionHelper;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class City {

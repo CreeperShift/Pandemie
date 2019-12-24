@@ -3,7 +3,6 @@ package project.pandemie.util;
 public class ConversionHelper {
 
     private ConversionHelper(){
-
     }
 
     public static int stringValueToNumeric(String value){
