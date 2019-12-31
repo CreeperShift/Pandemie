@@ -12,4 +12,15 @@ public class TConstant {
     public static final int CONNECTION_CLOSE_ROUNDS = 2;
 
     public static final float MOBILITY_SPREAD_RADIUS = 500f;
+
+
+
+    /*
+    Movepoint threshholds
+     */
+    public static final int MOVE_IGNORE_LOW = 20;
+    public static final int MOVE_IGNORE_MED = 10;
+    public static final int MOVE_IGNORE_HIGH = 5;
+
 }
+
