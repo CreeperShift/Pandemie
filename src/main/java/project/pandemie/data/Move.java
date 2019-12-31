@@ -1,6 +1,5 @@
 package project.pandemie.data;
 
-
 public class Move {
 
     public static class Builder {

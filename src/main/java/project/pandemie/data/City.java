@@ -1,8 +1,7 @@
 package project.pandemie.data;
 
-import project.pandemie.util.ConversionHelper;
+import project.pandemie.util.UtilHelper;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class City {
@@ -64,19 +63,19 @@ public class City {
     }
 
     public int getEconomy() {
-        return ConversionHelper.stringValueToNumeric(economy);
+        return UtilHelper.stringValueToNumeric(economy);
     }
 
     public int getGovernment() {
-        return ConversionHelper.stringValueToNumeric(government);
+        return UtilHelper.stringValueToNumeric(government);
     }
 
     public int getHygiene() {
-        return ConversionHelper.stringValueToNumeric(hygiene);
+        return UtilHelper.stringValueToNumeric(hygiene);
     }
 
     public int getAwareness() {
-        return ConversionHelper.stringValueToNumeric(awareness);
+        return UtilHelper.stringValueToNumeric(awareness);
     }
 
     public Events[] getEvents() {

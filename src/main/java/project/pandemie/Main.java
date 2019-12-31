@@ -2,22 +2,30 @@ package project.pandemie;
 
 import project.pandemie.api.ILogic;
 import project.pandemie.api.IParser;
+import project.pandemie.data.City;
+import project.pandemie.data.Events;
 import project.pandemie.data.Move;
 import project.pandemie.data.Round;
+import project.pandemie.logging.LogWriter;
 import project.pandemie.logic.Actor;
 import project.pandemie.parse.Parser;
 import project.pandemie.visualization.Visualization;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static spark.Spark.*;
+import static spark.Spark.port;
+import static spark.Spark.post;
 
 public class Main {
 
     static int PORT = 50123;
     static List<Move> moveList = new ArrayList<>();
     static IParser parser;
+    static LogWriter pathogenLog;
+    static LogWriter eventLog;
+    static LogWriter cityEventLog;
 
     public static void main(String[] args) {
 
@@ -38,17 +46,20 @@ public class Main {
                 /*
                 We don't save states so it creates a new Actor
                  */
-                ILogic logic = new Actor();
+                ILogic logic = new Actor(r);
 
                 /*
                 moveList contains all moves INCLUDING
                 endRound
                  */
-                moveList = logic.getMoves(r);
+                moveList = logic.getMoves();
 
                 /*
                 Reply with a move, removing it from the list.
                  */
+
+                doLogging(r);
+
                 return parser.parseMove(moveList.remove(0));
             }
 
@@ -62,6 +73,35 @@ public class Main {
             return parser.parseMove(moveList.remove(0));
 
         });
+
+    }
+
+    private static void doLogging(Round r) throws IOException {
+
+        if (r.getRound() == 1) {
+            for (Events e : r.getEvents()) {
+                if (e.getPathogen() != null) {
+                    pathogenLog.log(e.getPathogen().toString());
+                }
+            }
+        }
+
+        for (Events e : r.getEvents()) {
+            if (e.getPathogen() == null) {
+                eventLog.log(e.toString());
+            }
+        }
+
+        for (City c : r.getCities().values()) {
+            if (c.hasEvents()) {
+                for (Events e : c.getEvents()) {
+                    if (e.getPathogen() == null) {
+                        cityEventLog.log(e.toString());
+                    }
+                }
+
+            }
+        }
 
     }
 
@@ -89,5 +129,8 @@ public class Main {
 
         port(PORT);
         parser = new Parser();
+        pathogenLog = new LogWriter("C:/Pandemie/pathogens.txt");
+        eventLog = new LogWriter("C:/Pandemie/events.txt");
+        cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
     }
 }

@@ -1,6 +1,6 @@
 package project.pandemie.data;
 
-import project.pandemie.util.ConversionHelper;
+import project.pandemie.util.UtilHelper;
 
 public class Pathogen {
 
@@ -10,34 +10,38 @@ public class Pathogen {
     private String duration;
     private String lethality;
 
+    private transient int pathogenScore = 0; //TODO: Determine score!
+
     public String getName() {
         return name;
     }
 
+    public int getPathogenScore() {
+        return pathogenScore;
+    }
+
     public int getInfectivity() {
-        return ConversionHelper.stringValueToNumeric(infectivity);
+        return UtilHelper.stringValueToNumeric(infectivity);
     }
 
     public int getMobility() {
-        return ConversionHelper.stringValueToNumeric(mobility);
+        return UtilHelper.stringValueToNumeric(mobility);
     }
 
     public int getDuration() {
-        return ConversionHelper.stringValueToNumeric(duration);
+        return UtilHelper.stringValueToNumeric(duration);
     }
 
     public int getLethality() {
-        return ConversionHelper.stringValueToNumeric(lethality);
+        return UtilHelper.stringValueToNumeric(lethality);
     }
 
     @Override
     public String toString() {
-        return "Pathogen{" +
-                "name='" + name + '\'' +
-                ", infectivity='" + infectivity + '\'' +
-                ", mobility='" + mobility + '\'' +
-                ", duration='" + duration + '\'' +
-                ", lethality='" + lethality + '\'' +
-                '}';
+        return "Pathogen: " + name + '\'' +
+                ", infectivity='" + getInfectivity() + " | " +
+                ", mobility='" + getMobility() + " | " +
+                ", duration='" + getDuration() + " | " +
+                ", lethality='" + getLethality();
     }
 }
