@@ -26,11 +26,11 @@ public class Main {
     static LogWriter pathogenLog;
     static LogWriter eventLog;
     static LogWriter cityEventLog;
+    static Visualization visualization;
 
     public static void main(String[] args) {
 
         init(args);
-        Visualization v=new Visualization();
         /*
         Post ROUTE
          */
@@ -42,7 +42,7 @@ public class Main {
                 Read req and translate it into a ROUND object
                  */
                 Round r = parser.parseRound(req.body());
-                v.addRound(r);
+
                 /*
                 We don't save states so it creates a new Actor
                  */
@@ -59,6 +59,7 @@ public class Main {
                  */
 
                 doLogging(r);
+                doVisualization(r);
 
                 return parser.parseMove(moveList.remove(0));
             }
@@ -74,6 +75,10 @@ public class Main {
 
         });
 
+    }
+
+    private static void doVisualization(Round r) {
+        visualization.addRound(r);
     }
 
     private static void doLogging(Round r) throws IOException {
@@ -132,5 +137,7 @@ public class Main {
         pathogenLog = new LogWriter("C:/Pandemie/pathogens.txt");
         eventLog = new LogWriter("C:/Pandemie/events.txt");
         cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
+
+        visualization = new Visualization();
     }
 }
