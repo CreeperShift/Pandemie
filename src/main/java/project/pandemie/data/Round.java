@@ -150,6 +150,16 @@ public class Round {
         return col;
     }
 
+    public Collection<City> getInfectedCitiesbyScore(boolean descending){
+        Collection<City> col = new ArrayList<>();
+        for (City c : getCityByScore(descending)) {
+            if (c.isInfected()) {
+                col.add(c);
+            }
+        }
+        return col;
+    }
+
     public Collection<City> getCityByScore(boolean descending) {
         for (City c : cities.values()) {
 

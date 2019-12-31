@@ -9,6 +9,7 @@ import project.pandemie.data.Round;
 import project.pandemie.logging.LogWriter;
 import project.pandemie.logic.Actor;
 import project.pandemie.parse.Parser;
+import project.pandemie.visualization.Visualization;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Main {
     public static void main(String[] args) {
 
         init(args);
-
+        Visualization v=new Visualization();
         /*
         Post ROUTE
          */
@@ -41,7 +42,7 @@ public class Main {
                 Read req and translate it into a ROUND object
                  */
                 Round r = parser.parseRound(req.body());
-
+                v.addRound(r);
                 /*
                 We don't save states so it creates a new Actor
                  */
