@@ -52,7 +52,7 @@ public class Actor implements ILogic {
 
         for (City c : round.getCities().values()) {
             if (c.getScore() > TConstant.CITY_SCORE_IGNORE) {
-                break;
+                continue;
             }
             /*
             Look at pathogens & events + modify score should happen in city class

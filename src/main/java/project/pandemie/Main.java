@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
@@ -62,6 +63,8 @@ public class Main {
                 doLogging(r);
                 doVisualization(r);
 
+                sleep(200);
+
                 return parser.parseMove(moveList.remove(0));
             }
 
@@ -71,7 +74,7 @@ public class Main {
                   only one move at a time, and feed the input back into
                   our logic actor.
              */
-
+            sleep(200);
             return parser.parseMove(moveList.remove(0));
 
         });
@@ -141,6 +144,6 @@ public class Main {
         cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
 
         visualizer = new Visualizer();
-        Plotter plot = new Plotter("Test", "x", "y", 400, 400);
+        Plotter plot = new Plotter("World Population over time", "x", "y", 400, 400);
     }
 }
