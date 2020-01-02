@@ -8,3 +8,4 @@ log.txt
 /.idea/caches/
 /.idea/libraries/
 /.idea/modules/
+*.iml
