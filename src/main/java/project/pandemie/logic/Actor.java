@@ -1,7 +1,15 @@
 package project.pandemie.logic;
 
 import project.pandemie.api.ILogic;
-import project.pandemie.data.*;
+import project.pandemie.api.IStrategy;
+import project.pandemie.data.City;
+import project.pandemie.data.Events;
+import project.pandemie.data.Pathogen;
+import project.pandemie.data.Round;
+import project.pandemie.data.move.Move;
+import project.pandemie.data.move.MoveCloseAirport;
+import project.pandemie.data.move.MoveCloseConnection;
+import project.pandemie.data.move.MoveEndRound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,11 +79,11 @@ public class Actor implements ILogic {
             }
 
             if (count > TConstant.CONNECTION_CLOSE_AIRPORT) {
-                potentialMoves.add(new Move.Builder("closeAirport").withCity(c.getName()).withRounds(TConstant.AIRPORT_CLOSE_ROUNDS).build()); //TODO: Add severity modifier
+                potentialMoves.add(new MoveCloseAirport(TConstant.AIRPORT_CLOSE_ROUNDS, c.getName())); //TODO: Add severity modifier
             } else if (count > 0) {
                 for (int i = 0; i < takeAction.length; i++) {
                     if (takeAction[i]) {
-                        potentialMoves.add(new Move.Builder("closeConnection").withFromCity(c.getName()).withToCity(c.getConnections()[i]).withRounds(TConstant.CONNECTION_CLOSE_ROUNDS).build()); //TODO: Add severity modifier
+                        potentialMoves.add(new MoveCloseConnection(TConstant.CONNECTION_CLOSE_ROUNDS, c.getName(), c.getConnections()[i])); //TODO: Add severity modifier
                     }
                 }
             }
@@ -99,11 +107,14 @@ public class Actor implements ILogic {
     }
 
     private void decideMoves() {
+
+        IStrategy strategy = new StrategyTest(round, potentialMoves);
+
     }
 
 
     public void endRound() {
-        moveList.add(new Move.Builder("endRound").build());
+        moveList.add(new MoveEndRound());
     }
 
 }
