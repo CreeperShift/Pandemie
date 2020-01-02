@@ -31,7 +31,7 @@ public abstract class Strategy implements IStrategy {
 
     protected Round getRound() {
         return r;
-    }//
+    }
 
     @Override
     public List<Move> decideMoves() {

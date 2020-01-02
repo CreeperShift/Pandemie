@@ -9,6 +9,21 @@ import java.util.List;
 
 public class Visualizer {
 
+    private static Visualizer instance = null;
+
+    /*
+    Singleton pattern
+     */
+    private Visualizer() {
+    }
+
+    public static Visualizer getInstance() {
+        if (instance == null) {
+            instance = new Visualizer();
+        }
+        return instance;
+    }
+
     private boolean newRound = true;
 
     private static ArrayList<Collection<Round>> roundCollection = new ArrayList<>();
