@@ -145,7 +145,8 @@ public class Main {
                 try {
                     p = Integer.parseInt(b);
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    System.out.println("Port is not a valid number!");
+                    System.exit(1);
                 }
                 if (null != p) {
                     PORT = p;
@@ -158,7 +159,8 @@ public class Main {
                 try {
                     s = Integer.parseInt(b);
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    System.out.println("SleepTimer is not a valid number!");
+                    System.exit(1);
                 }
                 if (null != s) {
                     pauseTimer = s;
