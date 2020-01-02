@@ -78,7 +78,7 @@ public class City {
     }
 
     private void calculateScores() {
-        scoreHolder.setScore(getEconomy() + getGovernment() + getAwareness() + getHygiene());
+        scoreHolder = new ScoreHolder(getEconomy() + getGovernment() + getAwareness() + getHygiene());
     }
 
     private boolean isInfected() {
