@@ -28,7 +28,6 @@ public class Main {
     static LogWriter pathogenLog;
     static LogWriter eventLog;
     static LogWriter cityEventLog;
-    static Visualizer visualizer;
 
     public static void main(String[] args) {
 
@@ -82,7 +81,7 @@ public class Main {
     }
 
     private static void doVisualization(Round r) {
-        visualizer.addRound(r);
+        Visualizer.getInstance().addRound(r);
 
     }
 
@@ -143,7 +142,6 @@ public class Main {
         eventLog = new LogWriter("C:/Pandemie/events.txt");
         cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
 
-        visualizer = new Visualizer();
         Plotter plot = new Plotter("World Population over time", "x", "y", 400, 400);
     }
 }
