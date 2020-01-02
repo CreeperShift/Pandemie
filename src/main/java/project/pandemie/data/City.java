@@ -2,6 +2,8 @@ package project.pandemie.data;
 
 import project.pandemie.util.UtilHelper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class City {
@@ -17,30 +19,10 @@ public class City {
     private String awareness;
     private Events[] events;
 
-    private boolean isInfected = false;
-    private int popInfected;
-    private int score;
-
-    public void init() {
-        checkInfected();
-        calculateInfected();
-        calculateScore();
-    }
-
-    private void calculateScore() {
-        score += getEconomy() + getGovernment() + getAwareness() + getHygiene();
-    }
-
-    private void checkInfected() {
-        if (hasEvents()) {
-            for (Events events : this.getEvents()) {
-                if (events.getPathogen() != null) {
-                    isInfected = true;
-                    break;
-                }
-            }
-        }
-    }
+    private boolean isInfected;
+    private boolean hasEvents;
+    public Score score;
+    public Population pop;
 
     public String getName() {
         return name;
@@ -82,38 +64,58 @@ public class City {
         return events;
     }
 
-    public int getInfectedPopulation() {
-        return popInfected;
+
+    public boolean hasCityEvents() {
+        return hasEvents;
     }
 
-    public boolean isInfected() {
-        return isInfected;
-    }
-
-    public int getScore() {
+    public Score getScore() {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-
+    public boolean isCityInfected() {
+        return isInfected;
     }
 
-//    @Override
-//    public String toString() {
-//        return "City{" +
-//                "name='" + name + '\'' +
-//                ", latitude=" + latitude +
-//                ", longitude=" + longitude +
-//                ", population=" + population +
-//                ", connections=" + Arrays.toString(connections) +
-//                ", economy='" + getEconomy()+ '\'' +
-//                ", government='" + getGovernment() + '\'' +
-//                ", hygiene='" + getHygiene() + '\'' +
-//                ", awareness='" + getAwareness() + '\'' +
-//                ", events=" + Arrays.toString(events) +
-//                '}';
-//    }
+    public void process() {
+        calculateScores();
+        hasEvents = hasEvents();
+        isInfected = isInfected();
+        pop = calculatePopulation();
+    }
+
+    private void calculateScores() {
+        score.setScore(getEconomy() + getGovernment() + getAwareness() + getHygiene());
+    }
+
+    private boolean isInfected() {
+        if (!hasEvents) {
+            return false;
+        }
+        for (Events e : events) {
+            if (e.getPathogen() != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Population calculatePopulation() {
+        if (isInfected) {
+            List<Double> prevalence = new ArrayList<>();
+            for (Events e : events) {
+                if (e.getPathogen() != null) {
+                    prevalence.add(e.getPrevalence());
+                }
+            }
+            Population p = new Population();
+            p.addPopulation(population, prevalence);
+            return p;
+        }
+        Population p = new Population();
+        p.addPopulation(population);
+        return p;
+    }
 
     @Override
     public String toString() {
@@ -125,18 +127,8 @@ public class City {
                 '}';
     }
 
-    public boolean hasEvents() {
+    private boolean hasEvents() {
         return getEvents() != null && getEvents().length > 0;
-    }
-
-    public void calculateInfected() {
-        if (isInfected) {
-            for (Events events : getEvents()) {
-                if (events.getPathogen() != null) {
-                    popInfected = (int) (population * events.getPrevalence());
-                }
-            }
-        }
     }
 
     @Override

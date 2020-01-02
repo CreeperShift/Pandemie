@@ -3,6 +3,7 @@ package project.pandemie.parse;
 import com.google.gson.*;
 import project.pandemie.api.IParser;
 import project.pandemie.data.City;
+import project.pandemie.data.CityWrapper;
 import project.pandemie.data.Events;
 import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
@@ -18,10 +19,10 @@ public class Parser implements IParser {
         String outcome = job.get("outcome").getAsString();
         int round =  job.get("round").getAsInt();
         int points = job.get("points").getAsInt();
-        Map<String, City> cities = mapCities(job);
+        HashMap<String, City> cities = mapCities(job);
         Collection<Events> events = mapEvents(job);
 
-        return new Round.Builder(round, outcome).withPoints(points).withCities(cities).withEvents(events).build();
+        return new Round.Builder(round, outcome).withPoints(points).withCities(new CityWrapper(cities)).withEvents(events).build();
     }
 
     @Override
@@ -29,7 +30,7 @@ public class Parser implements IParser {
         return new Gson().toJson(m);
     }
 
-    private Map<String, City> mapCities(JsonObject job){
+    private HashMap<String, City> mapCities(JsonObject job){
 
         Gson gson = new Gson();
         JsonObject cit = job.getAsJsonObject("cities");
@@ -37,11 +38,10 @@ public class Parser implements IParser {
         Map<String, JsonObject> map = new HashMap<>();
         Set<Map.Entry<String, JsonElement>> entrySet = cit.entrySet();
 
-        Map<String, City> cityList = new HashMap<>();
+        HashMap<String, City> cityList = new HashMap<>();
 
         for(Map.Entry<String,JsonElement> entry : entrySet) {
             City c = gson.fromJson(entry.getValue(), City.class);
-            c.init();
             cityList.put(c.getName(), c);
         }
         return cityList;

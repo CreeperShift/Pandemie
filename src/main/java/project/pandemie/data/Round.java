@@ -8,7 +8,7 @@ public class Round {
         private int round;
         private String outcome;
         private int points;
-        private Map<String, City> cities;
+        private CityWrapper cityWrapper;
         private Collection<Events> events;
 
         public Builder(int round, String outcome) {
@@ -21,8 +21,8 @@ public class Round {
             return this;
         }
 
-        public Builder withCities(Map<String, City> cities) {
-            this.cities = cities;
+        public Builder withCities(CityWrapper cityWrapper) {
+            this.cityWrapper = cityWrapper;
             return this;
         }
 
@@ -36,35 +36,13 @@ public class Round {
             r.round = round;
             r.outcome = outcome;
             r.points = points;
-            r.cities = cities;
+            r.cityWrapper = cityWrapper;
             r.events = events;
-            r.worldPopulation = calculatePopulation();
-            r.infectedPopulation = calculateInfected();
+//            r.worldPopulation = calculatePopulation();
+//            r.infectedPopulation = calculateInfected();
             r.pathogens = getPathogens();
 
             return r;
-        }
-
-        /*
-        Calculate world population
-        */
-        private int calculatePopulation() {
-            int pop = 0;
-            for (City c : cities.values()) {
-                pop += c.getPopulation();
-            }
-            return pop;
-        }
-
-        /*
-        Calculate infected world population
-        */
-        private int calculateInfected() {
-            int pop = 0;
-            for (City c : cities.values()) {
-                pop += c.getInfectedPopulation();
-            }
-            return pop;
         }
 
         private List<Pathogen> getPathogens() {
@@ -81,16 +59,13 @@ public class Round {
     }
 
     private Round() {
-
     }
 
     private String outcome;
     private int round;
     private int points;
-    private Map<String, City> cities;
+    private CityWrapper cityWrapper;
     private Collection<Events> events;
-    private int worldPopulation;
-    private int infectedPopulation;
     private List<Pathogen> pathogens;
 
 
@@ -107,38 +82,21 @@ public class Round {
     }
 
     public Map<String, City> getCities() {
-        return cities;
+        return cityWrapper.getCities();
     }
 
     public Collection<Events> getEvents() {
         return events;
     }
 
-    public int getWorldPopulation() {
-        return worldPopulation;
-    }
-
-    public int getInfectedPopulation() {
-        return infectedPopulation;
+    public CityWrapper getCityWrapper() {
+        return cityWrapper;
     }
 
     public Collection<Pathogen> getPathogens() {
         return pathogens;
     }
 
-    public int getBiggestPopulation() {
-        int pop = 0;
-        for (City c : cities.values()) {
-            if (c.getPopulation() > pop) {
-                pop = c.getPopulation();
-            }
-        }
-        return pop;
-    }
-
-    public float getPercentInfected() {
-        return ((float) getInfectedPopulation() / (float) getWorldPopulation()) * 100f;
-    }
 
     public Collection<City> getInfectedCities() {
         Collection<City> col = new ArrayList<>();

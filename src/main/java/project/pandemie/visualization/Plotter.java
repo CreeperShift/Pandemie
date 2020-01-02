@@ -39,7 +39,7 @@ public class Plotter implements IVisual {
 
     @Override
     public void visualize(Round r) {
-        population.add(r.getWorldPopulation());
+        population.add(r.getCityWrapper().getWorldPopulation());
         if (started) {
             chartInstance.updateXYSeries("world", null, population, null);
             chartPanel.revalidate();
