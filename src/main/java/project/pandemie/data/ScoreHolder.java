@@ -2,11 +2,11 @@ package project.pandemie.data;
 
 import project.pandemie.api.IScore;
 
-public class Score implements IScore {
+public class ScoreHolder implements IScore {
 
     private int score;
 
-    public Score(int score) {
+    public ScoreHolder(int score) {
         this.score = score;
     }
 

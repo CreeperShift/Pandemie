@@ -12,12 +12,19 @@ public class Population {
         this.totalPop += population;
         for (Double f : prevalence) {
             totalInf += getInf(population, f);
+            calculatePercent();
         }
-        percentInf = (double) totalInf / (double) totalPop;
     }
 
     public void addPopulation(int population) {
         this.totalPop += population;
+        calculatePercent();
+    }
+
+    public void addPopulation(Population p) {
+        this.totalPop += p.size();
+        this.totalInf += p.totalInf;
+        calculatePercent();
     }
 
 
@@ -25,7 +32,11 @@ public class Population {
         return (int) Math.round((double) a * b);
     }
 
-    public int getPopulation() {
+    private void calculatePercent() {
+        percentInf = (double) totalInf / (double) totalPop;
+    }
+
+    public int size() {
         return totalPop;
     }
 
@@ -33,7 +44,7 @@ public class Population {
         return totalInf;
     }
 
-    public double getPercentInf() {
+    public double getPercentInfected() {
         return percentInf;
     }
 }

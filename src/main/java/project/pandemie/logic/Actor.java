@@ -59,7 +59,7 @@ public class Actor implements ILogic {
     private void checkCities() {
 
         for (City c : round.getCities().values()) {
-            if (c.getScore() > TConstant.CITY_SCORE_IGNORE) {
+            if (c.getScoreHolder().getScore() > TConstant.CITY_SCORE_IGNORE) {
                 continue;
             }
             /*

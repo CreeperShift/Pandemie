@@ -98,73 +98,15 @@ public class Round {
     }
 
 
-    public Collection<City> getInfectedCities() {
-        Collection<City> col = new ArrayList<>();
-        for (City c : cities.values()) {
-            if (c.isInfected()) {
-                col.add(c);
-            }
-        }
-        return col;
-    }
-
-    public Collection<City> getInfectedCitiesbyScore(boolean descending) {
-        Collection<City> col = new ArrayList<>();
-        for (City c : getCityByScore(descending)) {
-            if (c.isInfected()) {
-                col.add(c);
-            }
-        }
-        return col;
-    }
-
-    public Collection<City> getCityByScore(boolean descending) {
-        for (City c : cities.values()) {
-
-            /*
-            Smaller cities are less important
-             */
-            if (c.getPopulation() < getBiggestPopulation() * 0.6) {
-                c.setScore(c.getScore() + 1);
-            } else if (c.getPopulation() < getBiggestPopulation() * 0.3) {
-                c.setScore(c.getScore() + 2);
-            }
-
-            /*
-            Cities that are not infected yet are more important
-             */
-            if (!c.isInfected()) {
-                c.setScore(c.getScore() - 2);
-            } else {
-                /*
-                Cities with low infection % are more at risk
-                 */
-                float infected = (((float) c.getInfectedPopulation()) / ((float) c.getPopulation()) * 100f);
-                if (infected < 20) {
-                    c.setScore(c.getScore() - 2);
-                }
-            }
-        }
-
-        ArrayList<City> col = new ArrayList<>(cities.values());
-
-        col.sort((a, b) -> a.getScore() - b.getScore());
-        if (descending) {
-            col.sort(Collections.reverseOrder());
-        }
-
-        return col;
-    }
-
     @Override
     public String toString() {
         return "Round{" +
                 "outcome='" + outcome + '\'' +
                 ", round=" + round +
                 ", points=" + points +
-                ", worldPopulation=" + worldPopulation +
-                ", infectedPopulation=" + infectedPopulation +
-                ", percentInfected=" + getPercentInfected() +
+                ", worldPopulation=" + cityWrapper.getWorldPopulation().size() +
+                ", infectedPopulation=" + cityWrapper.getWorldPopulation().getInfectedPopulation() +
+                ", percentInfected=" + cityWrapper.getWorldPopulation().getPercentInfected() +
                 '}';
     }
 }

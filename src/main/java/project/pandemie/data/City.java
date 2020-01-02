@@ -20,8 +20,7 @@ public class City {
     private Events[] events;
 
     private boolean isInfected;
-    private boolean hasEvents;
-    public Score score;
+    public ScoreHolder scoreHolder;
     public Population pop;
 
     public String getName() {
@@ -36,8 +35,8 @@ public class City {
         return longitude;
     }
 
-    public int getPopulation() {
-        return population;
+    public Population getPopulation() {
+        return pop;
     }
 
     public String[] getConnections() {
@@ -64,13 +63,8 @@ public class City {
         return events;
     }
 
-
-    public boolean hasCityEvents() {
-        return hasEvents;
-    }
-
-    public Score getScore() {
-        return score;
+    public ScoreHolder getScoreHolder() {
+        return scoreHolder;
     }
 
     public boolean isCityInfected() {
@@ -79,17 +73,16 @@ public class City {
 
     public void process() {
         calculateScores();
-        hasEvents = hasEvents();
         isInfected = isInfected();
         pop = calculatePopulation();
     }
 
     private void calculateScores() {
-        score.setScore(getEconomy() + getGovernment() + getAwareness() + getHygiene());
+        scoreHolder.setScore(getEconomy() + getGovernment() + getAwareness() + getHygiene());
     }
 
     private boolean isInfected() {
-        if (!hasEvents) {
+        if (!hasEvents()) {
             return false;
         }
         for (Events e : events) {
@@ -121,13 +114,13 @@ public class City {
     public String toString() {
         return "City{" +
                 "name='" + name + '\'' +
-                ", score=" + score + '\'' +
+                ", score=" + scoreHolder + '\'' +
                 ", infected?=" + isInfected + '\'' +
                 ", population=" + population +
                 '}';
     }
 
-    private boolean hasEvents() {
+    public boolean hasEvents() {
         return getEvents() != null && getEvents().length > 0;
     }
 
