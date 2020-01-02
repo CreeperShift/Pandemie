@@ -122,12 +122,9 @@ public class Main {
     private static void init(String[] args) {
         /*
         Handles cmd arguments
-        TODO: Move into own section/class
          */
         if (args.length == 2) {
-
             processInput(args[0], args[1]);
-
         }
 
         port(PORT);
