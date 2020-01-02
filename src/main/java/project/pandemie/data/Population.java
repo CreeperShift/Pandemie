@@ -33,7 +33,7 @@ public class Population {
     }
 
     private void calculatePercent() {
-        percentInf = (double) totalInf / (double) totalPop;
+        percentInf = ((double) totalInf / (double) totalPop) * 100;
     }
 
     public int size() {
