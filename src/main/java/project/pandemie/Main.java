@@ -29,6 +29,8 @@ public class Main {
     static LogWriter eventLog;
     static LogWriter cityEventLog;
 
+    private static int pauseTimer = 0;
+
     public static void main(String[] args) {
 
         init(args);
@@ -62,7 +64,7 @@ public class Main {
                 doLogging(r);
                 doVisualization(r);
 
-                sleep(200);
+                sleep(pauseTimer);
 
                 return parser.parseMove(moveList.remove(0));
             }
@@ -73,7 +75,7 @@ public class Main {
                   only one move at a time, and feed the input back into
                   our logic actor.
              */
-            sleep(200);
+            sleep(pauseTimer);
             return parser.parseMove(moveList.remove(0));
 
         });
@@ -122,17 +124,9 @@ public class Main {
         Handles cmd arguments
         TODO: Move into own section/class
          */
-        if (args.length > 1 && args[0].equals("-p")) {
-            Integer p = null;
-            try {
-                p = Integer.parseInt(args[1]);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            if (null != p) {
-                PORT = p;
+        if (args.length == 2) {
 
-            }
+            processInput(args[0], args[1]);
 
         }
 
@@ -144,4 +138,37 @@ public class Main {
 
         Plotter plot = new Plotter("World Population over time", "x", "y", 400, 400);
     }
+
+    private static void processInput(String a, String b) {
+
+        switch (a) {
+            case "-p":
+            case "-port":
+                Integer p = null;
+                try {
+                    p = Integer.parseInt(b);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                if (null != p) {
+                    PORT = p;
+
+                }
+                break;
+            case "-s":
+            case "-sleep":
+                Integer s = null;
+                try {
+                    s = Integer.parseInt(b);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                if (null != s) {
+                    pauseTimer = s;
+                }
+                break;
+        }
+
+    }
+
 }
