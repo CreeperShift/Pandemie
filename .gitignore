@@ -5,3 +5,6 @@
 log.txt
 .idea/misc.xml
 .idea
+/.idea/caches/
+/.idea/libraries/
+/.idea/modules/
