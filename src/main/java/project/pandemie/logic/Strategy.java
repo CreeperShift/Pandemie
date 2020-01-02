@@ -4,13 +4,14 @@ import project.pandemie.api.IStrategy;
 import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Strategy implements IStrategy {
 
     private List<Move> possibleMoves;
     private Round r;
-    private List<Move> moveList;
+    private List<Move> moveList = new ArrayList<>();
 
     public Strategy(Round r, List<Move> possibleMoves) {
         this.r = r;
