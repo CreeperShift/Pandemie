@@ -3,14 +3,14 @@ package project.pandemie.logic;
 import project.pandemie.api.ILogic;
 import project.pandemie.data.*;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Actor implements ILogic {
 
-    private List<Move> moveList = Collections.emptyList();
+    private List<Move> moveList = new ArrayList<>();
 
-    private List<Move> potentialMoves = Collections.emptyList();
+    private List<Move> potentialMoves = new ArrayList<>();
 
     private boolean hasDeadlyPathogen = false;
     private boolean hasMobilePathogen = false;
@@ -87,10 +87,11 @@ public class Actor implements ILogic {
     private boolean checkConnection(String city) {
 
         City c = round.getCities().get(city);
-
-        for (Events e : c.getEvents()) {
-            if (e.getPathogen() != null && (e.getPathogen().getInfectivity() > TConstant.CONNECTION_INFECTIOUS_PATHOGEN || e.getPathogen().getPathogenScore() > TConstant.CONNECTION_PATHOGEN_THRESHOLD)) {
-                return true;
+        if(c.hasEvents()) {
+            for (Events e : c.getEvents()) {
+                if (e.getPathogen() != null && (e.getPathogen().getInfectivity() > TConstant.CONNECTION_INFECTIOUS_PATHOGEN || e.getPathogen().getPathogenScore() > TConstant.CONNECTION_PATHOGEN_THRESHOLD)) {
+                    return true;
+                }
             }
         }
 

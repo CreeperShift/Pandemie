@@ -68,7 +68,7 @@ public class Round {
         }
 
         private List<Pathogen> getPathogens() {
-            List<Pathogen> pathogenList = Collections.emptyList();
+            List<Pathogen> pathogenList = new ArrayList<>();
 
             for (Events e : events) {
                 if (e.getPathogen() != null) {
@@ -150,7 +150,7 @@ public class Round {
         return col;
     }
 
-    public Collection<City> getInfectedCitiesbyScore(boolean descending){
+    public Collection<City> getInfectedCitiesbyScore(boolean descending) {
         Collection<City> col = new ArrayList<>();
         for (City c : getCityByScore(descending)) {
             if (c.isInfected()) {

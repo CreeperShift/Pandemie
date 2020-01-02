@@ -9,7 +9,8 @@ import project.pandemie.data.Round;
 import project.pandemie.logging.LogWriter;
 import project.pandemie.logic.Actor;
 import project.pandemie.parse.Parser;
-import project.pandemie.visualization.Visualization;
+import project.pandemie.visualization.Plotter;
+import project.pandemie.visualization.Visualizer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class Main {
     static LogWriter pathogenLog;
     static LogWriter eventLog;
     static LogWriter cityEventLog;
-    static Visualization visualization;
+    static Visualizer visualizer;
 
     public static void main(String[] args) {
 
@@ -78,7 +79,8 @@ public class Main {
     }
 
     private static void doVisualization(Round r) {
-        visualization.addRound(r);
+        visualizer.addRound(r);
+
     }
 
     private static void doLogging(Round r) throws IOException {
@@ -138,6 +140,7 @@ public class Main {
         eventLog = new LogWriter("C:/Pandemie/events.txt");
         cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
 
-        visualization = new Visualization();
+        visualizer = new Visualizer();
+        Plotter plot = new Plotter("Test", "x", "y", 400, 400);
     }
 }
