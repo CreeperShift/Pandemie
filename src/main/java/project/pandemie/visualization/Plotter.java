@@ -45,32 +45,37 @@ public class Plotter implements IVisual {
             chartPanel.revalidate();
             chartPanel.repaint();
         } else {
-            chartInstance = new XYChartBuilder().width(w).height(h).title(title).xAxisTitle(x).yAxisTitle(y).build();
-            chartInstance.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Line).setLegendPosition(Styler.LegendPosition.InsideSW).setInfoPanelVisible(true).setLegendVisible(true);
-            chartInstance.addSeries("world", null, population, null);
-
-            // Schedule a job for the event-dispatching thread:
-            // creating and showing this application's GUI.
-            javax.swing.SwingUtilities.invokeLater(() -> {
-
-                // Create and set up the window.
-                JFrame frame = new JFrame("Advanced Example");
-                frame.setLayout(new BorderLayout());
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-                // chart
-                chartPanel = new XChartPanel<XYChart>(chartInstance);
-                frame.add(chartPanel, BorderLayout.CENTER);
-
-                // label
-                JLabel label = new JLabel("Blah blah blah.", SwingConstants.CENTER);
-                frame.add(label, BorderLayout.SOUTH);
-
-                // Display the window.
-                frame.pack();
-                frame.setVisible(true);
-            });
+            initChart();
             started = true;
         }
     }
+
+    private void initChart() {
+        chartInstance = new XYChartBuilder().width(w).height(h).title(title).xAxisTitle(x).yAxisTitle(y).build();
+        chartInstance.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Line).setLegendPosition(Styler.LegendPosition.InsideSW).setInfoPanelVisible(true).setLegendVisible(true);
+        chartInstance.addSeries("world", null, population, null);
+
+        // Schedule a job for the event-dispatching thread:
+        // creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(() -> {
+
+            // Create and set up the window.
+            JFrame frame = new JFrame("Advanced Example");
+            frame.setLayout(new BorderLayout());
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            // chart
+            chartPanel = new XChartPanel<XYChart>(chartInstance);
+            frame.add(chartPanel, BorderLayout.CENTER);
+
+            // label
+            JLabel label = new JLabel("Blah blah blah.", SwingConstants.CENTER);
+            frame.add(label, BorderLayout.SOUTH);
+
+            // Display the window.
+            frame.pack();
+            frame.setVisible(true);
+        });
+    }
+
 }
