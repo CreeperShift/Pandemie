@@ -60,16 +60,16 @@ public class Plotter implements IVisual {
         javax.swing.SwingUtilities.invokeLater(() -> {
 
             // Create and set up the window.
-            JFrame frame = new JFrame("Advanced Example");
+            JFrame frame = new JFrame("World Population");
             frame.setLayout(new BorderLayout());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             // chart
-            chartPanel = new XChartPanel<XYChart>(chartInstance);
+            chartPanel = new XChartPanel<>(chartInstance);
             frame.add(chartPanel, BorderLayout.CENTER);
 
             // label
-            JLabel label = new JLabel("Blah blah blah.", SwingConstants.CENTER);
+            JLabel label = new JLabel("Visualization", SwingConstants.CENTER);
             frame.add(label, BorderLayout.SOUTH);
 
             // Display the window.

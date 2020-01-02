@@ -1,7 +1,7 @@
 package project.pandemie.api;
 
 import project.pandemie.data.Round;
-import project.pandemie.data.Move;
+import project.pandemie.data.move.Move;
 
 public interface IParser {
 
