@@ -8,6 +8,85 @@ import java.util.Objects;
 
 public class City {
 
+    public static class Builder {
+
+        private String name;
+        private double latitude;
+        private double longitude;
+        private int population;
+        private String[] connections;
+        private String economy;
+        private String government;
+        private String hygiene;
+        private String awareness;
+        private Events[] events;
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setLatitude(double latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+
+        public Builder setLongitude(double longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+        public Builder setPopulation(int population) {
+            this.population = population;
+            return this;
+        }
+
+        public Builder setConnections(String[] connections) {
+            this.connections = connections;
+            return this;
+        }
+
+        public Builder setEconomy(String economy) {
+            this.economy = economy;
+            return this;
+        }
+
+        public Builder setGovernment(String government) {
+            this.government = government;
+            return this;
+        }
+
+        public Builder setHygiene(String hygiene) {
+            this.hygiene = hygiene;
+            return this;
+        }
+
+        public Builder setAwareness(String awareness) {
+            this.awareness = awareness;
+            return this;
+        }
+
+        public Builder setEvents(Events[] events) {
+            this.events = events;
+            return this;
+        }
+
+        public City build() {
+            City c = new City();
+            c.name = name;
+            c.longitude = longitude;
+            c.population = population;
+            c.connections = connections;
+            c.economy = economy;
+            c.government = government;
+            c.latitude = latitude;
+            c.hygiene = hygiene;
+            c.awareness = awareness;
+            c.events = events;
+            return c;
+        }
+    }
+
     private String name;
     private double latitude;
     private double longitude;
