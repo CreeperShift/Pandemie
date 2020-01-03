@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Population {
 
-    private int totalPop;
-    private int totalInf;
-    private double percentInf;
+    private int totalPop = 0;
+    private int totalInf = 0;
+    private double percentInf = 0d;
 
     public void addPopulation(int population, List<Double> prevalence) {
         this.totalPop += population;
