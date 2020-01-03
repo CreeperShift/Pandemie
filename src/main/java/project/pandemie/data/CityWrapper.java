@@ -1,20 +1,17 @@
 package project.pandemie.data;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class CityWrapper {
 
-    public HashMap<String, City> cityMap;
-    private Population worldPopulation;
+    private HashMap<String, City> cityMap;
+    private Population population;
     private int biggestPopulation;
 
     public CityWrapper(HashMap<String, City> cityMap) {
         this.cityMap = cityMap;
         this.cityMap.forEach((k, v) -> v.process());
-        this.worldPopulation = calculatePopulation();
+        this.population = calculatePopulation();
         this.biggestPopulation = calculateBiggestPopulation();
     }
 
@@ -43,8 +40,8 @@ public class CityWrapper {
         return pop;
     }
 
-    public Population getWorldPopulation() {
-        return worldPopulation;
+    public Population getPopulation() {
+        return population;
     }
 
     public int getBiggestPopulation() {
@@ -52,8 +49,8 @@ public class CityWrapper {
     }
 
 
-    public Collection<City> getInfectedCities() {
-        Collection<City> col = new ArrayList<>();
+    public List<City> getInfectedCities() {
+        List<City> col = new ArrayList<>();
         for (City c : cityMap.values()) {
             if (c.isCityInfected()) {
                 col.add(c);
@@ -95,7 +92,7 @@ public class CityWrapper {
 
         ArrayList<City> col = new ArrayList<>(cityMap.values());
 
-        col.sort((a, b) -> a.getScoreHolder().getScore() - b.getScoreHolder().getScore());
+        col.sort(Comparator.comparingInt(a -> a.getScoreHolder().getScore()));
         if (descending) {
             col.sort(Collections.reverseOrder());
         }

@@ -104,9 +104,9 @@ public class Round {
                 "outcome='" + outcome + '\'' +
                 ", round=" + round +
                 ", points=" + points +
-                ", worldPopulation=" + cityWrapper.getWorldPopulation().size() +
-                ", infectedPopulation=" + cityWrapper.getWorldPopulation().getInfectedPopulation() +
-                ", percentInfected=" + cityWrapper.getWorldPopulation().getPercentInfected() +
+                ", worldPopulation=" + cityWrapper.getPopulation().size() +
+                ", infectedPopulation=" + cityWrapper.getPopulation().getInfectedPopulation() +
+                ", percentInfected=" + cityWrapper.getPopulation().getPercentInfected() +
                 '}';
     }
 }
