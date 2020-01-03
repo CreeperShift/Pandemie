@@ -99,6 +99,10 @@ public class Events {
         return participants;
     }
 
+    public boolean hasPathogen() {
+        return pathogen != null;
+    }
+
     @Override
     public String toString() {
         return "Event: " + getType();

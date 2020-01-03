@@ -165,7 +165,7 @@ public class City {
             return false;
         }
         for (Events e : events) {
-            if (e.getPathogen() != null) {
+            if (e.hasPathogen()) {
                 return true;
             }
         }
