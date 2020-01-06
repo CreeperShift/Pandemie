@@ -1,5 +1,6 @@
 package project.pandemie;
 
+import com.beust.jcommander.JCommander;
 import project.pandemie.api.ILogic;
 import project.pandemie.api.IParser;
 import project.pandemie.data.City;
@@ -9,6 +10,7 @@ import project.pandemie.data.move.Move;
 import project.pandemie.logging.LogWriter;
 import project.pandemie.logic.Actor;
 import project.pandemie.parse.Parser;
+import project.pandemie.util.Args;
 import project.pandemie.visualization.Plotter;
 import project.pandemie.visualization.Visualizer;
 
@@ -22,18 +24,20 @@ import static spark.Spark.post;
 
 public class Main {
 
-    static int PORT = 50123;
     static List<Move> moveList = new ArrayList<>();
     static IParser parser;
     static LogWriter pathogenLog;
     static LogWriter eventLog;
     static LogWriter cityEventLog;
 
-    private static int pauseTimer = 0;
+    static Args cliArgs;
 
     public static void main(String[] args) {
+        cliArgs = new Args();
+        JCommander.newBuilder().addObject(cliArgs).build().parse(args);
 
-        init(args);
+        init();
+
         /*
         Post ROUTE
          */
@@ -64,7 +68,7 @@ public class Main {
                 doLogging(r);
                 doVisualization(r);
 
-                sleep(pauseTimer);
+                sleep(cliArgs.getSleepTimer());
 
                 return parser.parseMove(moveList.remove(0));
             }
@@ -75,7 +79,7 @@ public class Main {
                   only one move at a time, and feed the input back into
                   our logic actor.
              */
-            sleep(pauseTimer);
+            sleep(cliArgs.getSleepTimer());
             return parser.parseMove(moveList.remove(0));
 
         });
@@ -83,8 +87,9 @@ public class Main {
     }
 
     private static void doVisualization(Round r) {
-        Visualizer.getInstance().addRound(r);
-
+        if (cliArgs.doVisualization()) {
+            Visualizer.getInstance().addRound(r);
+        }
     }
 
     private static void doLogging(Round r) throws IOException {
@@ -119,55 +124,20 @@ public class Main {
     /*
     Initialization before we start the ROUTE
      */
-    private static void init(String[] args) {
-        /*
-        Handles cmd arguments
-         */
-        if (args.length == 2) {
-            processInput(args[0], args[1]);
-        }
+    private static void init() {
 
-        port(PORT);
+        port(cliArgs.getPort());
+        
         parser = new Parser();
-        pathogenLog = new LogWriter("C:/Pandemie/pathogens.txt");
-        eventLog = new LogWriter("C:/Pandemie/events.txt");
-        cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
 
-        Plotter plot = new Plotter("World Population over time", "x", "y", 400, 400);
-    }
-
-    private static void processInput(String a, String b) {
-
-        switch (a) {
-            case "-p":
-            case "-port":
-                Integer p = null;
-                try {
-                    p = Integer.parseInt(b);
-                } catch (NumberFormatException e) {
-                    System.out.println("Port is not a valid number!");
-                    System.exit(1);
-                }
-                if (null != p) {
-                    PORT = p;
-
-                }
-                break;
-            case "-s":
-            case "-sleep":
-                Integer s = null;
-                try {
-                    s = Integer.parseInt(b);
-                } catch (NumberFormatException e) {
-                    System.out.println("SleepTimer is not a valid number!");
-                    System.exit(1);
-                }
-                if (null != s) {
-                    pauseTimer = s;
-                }
-                break;
+        if (cliArgs.doLogging()) {
+            pathogenLog = new LogWriter("C:/Pandemie/pathogens.txt");
+            eventLog = new LogWriter("C:/Pandemie/events.txt");
+            cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
         }
 
+        if (cliArgs.doVisualization()) {
+            Plotter plot = new Plotter("World Population over time", "x", "y", 800, 800);
+        }
     }
-
 }

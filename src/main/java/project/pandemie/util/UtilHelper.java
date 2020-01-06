@@ -42,9 +42,4 @@ public class UtilHelper {
         return R * c;
     }
 
-    public static ArrayList<XYChart> getChartData(HashMap<String, ArrayList<Integer>> data) {
-
-        return null;
-    }
-
 }

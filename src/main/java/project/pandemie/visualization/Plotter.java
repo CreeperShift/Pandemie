@@ -41,9 +41,11 @@ public class Plotter implements IVisual {
     public void visualize(Round r) {
         population.add(r.getCityWrapper().getPopulation().size());
         if (started) {
-            chartInstance.updateXYSeries("world", null, population, null);
-            chartPanel.revalidate();
-            chartPanel.repaint();
+            chartInstance.updateXYSeries(title, null, population, null);
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                chartPanel.revalidate();
+                chartPanel.repaint();
+            });
         } else {
             initChart();
             started = true;
@@ -53,7 +55,8 @@ public class Plotter implements IVisual {
     private void initChart() {
         chartInstance = new XYChartBuilder().width(w).height(h).title(title).xAxisTitle(x).yAxisTitle(y).build();
         chartInstance.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Line).setLegendPosition(Styler.LegendPosition.InsideSW).setInfoPanelVisible(true).setLegendVisible(true);
-        chartInstance.addSeries("world", null, population, null);
+        chartInstance.addSeries(title, null, population, null);
+        chartInstance.getStyler().setPlotMargin(20);
 
         // Schedule a job for the event-dispatching thread:
         // creating and showing this application's GUI.
@@ -75,6 +78,12 @@ public class Plotter implements IVisual {
             // Display the window.
             frame.pack();
             frame.setVisible(true);
+        });
+    }
+
+    private void newGame() {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            chartPanel.removeAll();
         });
     }
 
