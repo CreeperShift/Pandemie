@@ -24,6 +24,8 @@ public class Actor implements ILogic {
     private boolean hasDeadlyPathogen = false;
     private boolean hasMobilePathogen = false;
     private boolean hasInfectiousPathogen = false;
+    private boolean hasVaccine = false;
+    private boolean hasMedication = false;
     private Round round;
 
     public Actor(Round round) {
