@@ -57,7 +57,7 @@ class CityWrapperTest {
 
     @Test
     void getInfectedCities() {
-        Assertions.assertEquals(cityWrapper.getInfectedCities().get(0).getName(), "Rome");
+        Assertions.assertEquals(cityWrapper.getCityList(true).get(0).getName(), "Rome");
     }
 
     @Test
