@@ -10,7 +10,7 @@ public class Args {
     @Parameter
     private List<String> parameters = new ArrayList<>();
 
-    @Parameter(names={"-p", "--port"}, description = "Custom port")
+    @Parameter(names={"-e", "--port"}, description = "Custom port")
     private Integer port = 50123;
 
     @Parameter(names={"-t", "--sleepTime"}, description = "Time to wait between rounds in ms")
