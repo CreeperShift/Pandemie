@@ -9,6 +9,7 @@ import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
 import project.pandemie.logging.LogWriter;
 import project.pandemie.logic.Actor;
+import project.pandemie.logic.testing.MobilityTester;
 import project.pandemie.parse.Parser;
 import project.pandemie.util.Args;
 import project.pandemie.visualization.Plotter;
@@ -26,9 +27,10 @@ public class Main {
 
     static List<Move> moveList = new ArrayList<>();
     static IParser parser;
-    static LogWriter pathogenLog;
-    static LogWriter eventLog;
-    static LogWriter cityEventLog;
+
+    private static MobilityTester mobilityTester = new MobilityTester();
+
+    public static LogWriter cityEventLog, eventLog, pathogenLog, debugLog;
 
     static Args cliArgs;
 
@@ -44,6 +46,7 @@ public class Main {
         post("/", (req, res) -> {
 
             if (moveList.isEmpty()) {
+
 
                 /*
                 Read req and translate it into a ROUND object
@@ -93,32 +96,37 @@ public class Main {
     }
 
     private static void doLogging(Round r) throws IOException {
+        if (cliArgs.doLogging()) {
 
-        if (r.getRound() == 1) {
-            for (Events e : r.getEvents()) {
-                if (e.getPathogen() != null) {
-                    pathogenLog.log(e.getPathogen().toString());
-                }
+            if (r.getRound() <= 2) {
+                mobilityTester.addRound(r);
             }
-        }
 
-        for (Events e : r.getEvents()) {
-            if (e.getPathogen() == null) {
-                eventLog.log(e.toString());
-            }
-        }
-
-        for (City c : r.getCities().values()) {
-            if (c.hasEvents()) {
-                for (Events e : c.getEvents()) {
-                    if (e.getPathogen() == null) {
-                        cityEventLog.log(e.toString());
+            if (r.getRound() == 1) {
+                for (Events e : r.getEvents()) {
+                    if (e.getPathogen() != null) {
+                        pathogenLog.log(e.getPathogen().toString());
                     }
                 }
+            }
 
+            for (Events e : r.getEvents()) {
+                if (e.getPathogen() == null) {
+                    eventLog.log(e.toString());
+                }
+            }
+
+            for (City c : r.getCities().values()) {
+                if (c.hasEvents()) {
+                    for (Events e : c.getEvents()) {
+                        if (e.getPathogen() == null) {
+                            cityEventLog.log(e.toString());
+                        }
+                    }
+
+                }
             }
         }
-
     }
 
     /*
@@ -127,13 +135,14 @@ public class Main {
     private static void init() {
 
         port(cliArgs.getPort());
-        
+
         parser = new Parser();
 
         if (cliArgs.doLogging()) {
             pathogenLog = new LogWriter("C:/Pandemie/pathogens.txt");
             eventLog = new LogWriter("C:/Pandemie/events.txt");
             cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
+            debugLog = new LogWriter("C:/Pandemie/debug.txt");
         }
 
         if (cliArgs.doVisualization()) {
