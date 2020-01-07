@@ -49,10 +49,10 @@ public class CityWrapper {
     }
 
 
-    public List<City> getInfectedCities() {
+    public List<City> getCityList(boolean infected) {
         List<City> col = new ArrayList<>();
         for (City c : cityMap.values()) {
-            if (c.isCityInfected()) {
+            if (c.isCityInfected() == infected) {
                 col.add(c);
             }
         }

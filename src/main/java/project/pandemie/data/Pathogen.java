@@ -2,6 +2,8 @@ package project.pandemie.data;
 
 import project.pandemie.util.UtilHelper;
 
+import java.util.Objects;
+
 public class Pathogen {
 
     public static class Builder {
@@ -87,5 +89,23 @@ public class Pathogen {
                 ", mobility='" + getMobility() + " | " +
                 ", duration='" + getDuration() + " | " +
                 ", lethality='" + getLethality();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pathogen pathogen = (Pathogen) o;
+        return pathogenScore == pathogen.pathogenScore &&
+                name.equals(pathogen.name) &&
+                infectivity.equals(pathogen.infectivity) &&
+                mobility.equals(pathogen.mobility) &&
+                duration.equals(pathogen.duration) &&
+                lethality.equals(pathogen.lethality);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, infectivity, mobility, duration, lethality);
     }
 }
