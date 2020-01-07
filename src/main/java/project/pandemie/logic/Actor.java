@@ -1,5 +1,6 @@
 package project.pandemie.logic;
 
+import project.pandemie.Main;
 import project.pandemie.api.ILogic;
 import project.pandemie.api.IStrategy;
 import project.pandemie.data.City;
@@ -35,6 +36,14 @@ public class Actor implements ILogic {
 
     @Override
     public List<Move> getMoves() {
+
+        if(round.getOutcome().equalsIgnoreCase("win")){
+            Main.win++;
+        }
+
+        if(round.getOutcome().equalsIgnoreCase("loss")){
+            Main.lose++;
+        }
 
         checkPathogens();
         checkCities();

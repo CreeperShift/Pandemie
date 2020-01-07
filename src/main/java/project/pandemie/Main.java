@@ -30,7 +30,9 @@ public class Main {
 
     private static MobilityTester mobilityTester = new MobilityTester();
 
-    public static LogWriter cityEventLog, eventLog, pathogenLog, debugLog;
+    public static LogWriter cityEventLog, eventLog, pathogenLog, debugLog, winLog;
+    public static int win = 0;
+    public static int lose = 0;
 
     static Args cliArgs;
 
@@ -70,6 +72,9 @@ public class Main {
 
                 doLogging(r);
                 doVisualization(r);
+                if(win+lose >= 100){
+                    winLog.log("win: " + win + " loss: " + lose);
+                }
 
                 sleep(cliArgs.getSleepTimer());
 
@@ -98,9 +103,9 @@ public class Main {
     private static void doLogging(Round r) throws IOException {
         if (cliArgs.doLogging()) {
 
-            if (r.getRound() <= 2) {
-                mobilityTester.addRound(r);
-            }
+//            if (r.getRound() <= 2) {
+//                mobilityTester.addRound(r);
+//            }
 
             if (r.getRound() == 1) {
                 for (Events e : r.getEvents()) {
@@ -143,6 +148,7 @@ public class Main {
             eventLog = new LogWriter("C:/Pandemie/events.txt");
             cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
             debugLog = new LogWriter("C:/Pandemie/debug.txt");
+            winLog = new LogWriter("C:/Pandemie/gameLog.txt");
         }
 
         if (cliArgs.doVisualization()) {
