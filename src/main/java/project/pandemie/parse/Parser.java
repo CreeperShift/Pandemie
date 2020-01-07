@@ -1,6 +1,7 @@
 package project.pandemie.parse;
 
 import com.google.gson.*;
+import project.pandemie.Main;
 import project.pandemie.api.IParser;
 import project.pandemie.data.City;
 import project.pandemie.data.CityWrapper;
@@ -17,7 +18,7 @@ public class Parser implements IParser {
         JsonObject job = JsonParser.parseString(s).getAsJsonObject();
 
         String outcome = job.get("outcome").getAsString();
-        int round =  job.get("round").getAsInt();
+        int round = job.get("round").getAsInt();
         int points = job.get("points").getAsInt();
         HashMap<String, City> cities = mapCities(job);
         Collection<Events> events = mapEvents(job);
@@ -30,27 +31,27 @@ public class Parser implements IParser {
         return new Gson().toJson(m);
     }
 
-    private HashMap<String, City> mapCities(JsonObject job){
+    private HashMap<String, City> mapCities(JsonObject job) {
 
         Gson gson = new Gson();
         JsonObject cit = job.getAsJsonObject("cities");
 
-        Map<String, JsonObject> map = new HashMap<>();
         Set<Map.Entry<String, JsonElement>> entrySet = cit.entrySet();
 
         HashMap<String, City> cityList = new HashMap<>();
 
-        for(Map.Entry<String,JsonElement> entry : entrySet) {
+        for (Map.Entry<String, JsonElement> entry : entrySet) {
             City c = gson.fromJson(entry.getValue(), City.class);
             cityList.put(c.getName(), c);
         }
         return cityList;
     }
 
-    private Collection<Events> mapEvents(JsonObject job){
+    private Collection<Events> mapEvents(JsonObject job) {
         Gson gson = new Gson();
 
         JsonArray jsonArray = job.getAsJsonArray("events");
+
         Events[] events = gson.fromJson(jsonArray, Events[].class);
 
         return Arrays.asList(events);

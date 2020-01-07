@@ -10,6 +10,7 @@ import project.pandemie.data.move.Move;
 import project.pandemie.data.move.MoveCloseAirport;
 import project.pandemie.data.move.MoveCloseConnection;
 import project.pandemie.data.move.MoveEndRound;
+import project.pandemie.logic.testing.MobilityTester;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Actor implements ILogic {
     public Actor(Round round) {
         this.round = round;
     }
+
 
     @Override
     public List<Move> getMoves() {
@@ -95,7 +97,7 @@ public class Actor implements ILogic {
     private boolean checkConnection(String city) {
 
         City c = round.getCities().get(city);
-        if(c.hasEvents()) {
+        if (c.hasEvents()) {
             for (Events e : c.getEvents()) {
                 if (e.getPathogen() != null && (e.getPathogen().getInfectivity() > TConstant.CONNECTION_INFECTIOUS_PATHOGEN || e.getPathogen().getPathogenScore() > TConstant.CONNECTION_PATHOGEN_THRESHOLD)) {
                     return true;
