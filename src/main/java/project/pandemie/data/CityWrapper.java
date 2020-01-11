@@ -29,7 +29,6 @@ public class CityWrapper {
         return cityMap;
     }
 
-
     private int calculateBiggestPopulation() {
         int pop = 0;
         for (City c : cityMap.values()) {
@@ -47,7 +46,6 @@ public class CityWrapper {
     public int getBiggestPopulation() {
         return biggestPopulation;
     }
-
 
     public List<City> getCityList(boolean infected) {
         List<City> col = new ArrayList<>();

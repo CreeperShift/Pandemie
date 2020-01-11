@@ -8,7 +8,9 @@ import project.pandemie.util.UtilHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MobilityTester {
@@ -22,7 +24,41 @@ public class MobilityTester {
         } else {
             r2 = r;
             test();
+
+            System.out.println("connected?: " + isConnected(r2.getCityWrapper().getCities().get("عمان"), r2.getCityWrapper().getCities().get("ירושלים")));
         }
+    }
+
+    private boolean isConnected(City c1, City c2) {
+        if (c1 == c2) {
+            return true;
+        }
+        Queue<City> queue = new LinkedList<>();
+        queue.add(c1);
+
+        do {
+
+            for (String con : queue.remove().getConnections()) {
+                if (con.equals(c2.getName())) {
+                    return true;
+                } else {
+                    if (r2.getCityWrapper().getCities().get(con).isCityInfected()) {
+                        for (Events e : r2.getCityWrapper().getCities().get(con).getEvents()) {
+                            for (Events f : c2.getEvents()) {
+                                if (f.hasPathogen() && e.hasPathogen() && f.getPathogen() == e.getPathogen()) {
+                                    queue.add(r2.getCityWrapper().getCities().get(con));
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+        } while (!queue.isEmpty());
+
+        return false;
     }
 
     private void test() {
@@ -97,7 +133,7 @@ public class MobilityTester {
                 }
                 if (didInfect) {
                     try {
-                        Main.debugLog.log(initialCity.getName() + " | " + path +  " | " + " ---> " + testCity.getName() + ": " + Math.floor(UtilHelper.haversine(initialCity.getLatitude(), initialCity.getLongitude(), testCity.getLatitude(), testCity.getLongitude())));
+                        Main.debugLog.log(initialCity.getName() + " | " + path + " | " + " ---> " + testCity.getName() + ": " + Math.floor(UtilHelper.haversine(initialCity.getLatitude(), initialCity.getLongitude(), testCity.getLatitude(), testCity.getLongitude())));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -26,6 +26,7 @@ public class Plotter implements IVisual {
 
     private ArrayList<Integer> rounds = new ArrayList<>();
     private ArrayList<Integer> population = new ArrayList<>();
+    private ArrayList<Integer> infPopulation = new ArrayList<>();
 
 
     public Plotter(String title, String x, String y, int w, int h) {
@@ -39,9 +40,11 @@ public class Plotter implements IVisual {
 
     @Override
     public void visualize(Round r) {
-        population.add(r.getCityWrapper().getPopulation().size());
+        population.add(r.getCityWrapper().getCities().get("Hamburg").getPopulation().size());
+        infPopulation.add(r.getCityWrapper().getCities().get("Hamburg").getPopulation().getInfectedPopulation());
         if (started) {
             chartInstance.updateXYSeries(title, null, population, null);
+            chartInstance.updateXYSeries("infected", null, infPopulation, null);
             javax.swing.SwingUtilities.invokeLater(() -> {
                 chartPanel.revalidate();
                 chartPanel.repaint();
@@ -56,6 +59,7 @@ public class Plotter implements IVisual {
         chartInstance = new XYChartBuilder().width(w).height(h).title(title).xAxisTitle(x).yAxisTitle(y).build();
         chartInstance.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Line).setLegendPosition(Styler.LegendPosition.InsideSW).setInfoPanelVisible(true).setLegendVisible(true);
         chartInstance.addSeries(title, null, population, null);
+        chartInstance.addSeries("infected", null, infPopulation, null);
         chartInstance.getStyler().setPlotMargin(20);
 
         // Schedule a job for the event-dispatching thread:

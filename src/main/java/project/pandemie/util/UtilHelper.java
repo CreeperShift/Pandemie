@@ -1,10 +1,5 @@
 package project.pandemie.util;
 
-import org.knowm.xchart.XYChart;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class UtilHelper {
 
     private UtilHelper() {
