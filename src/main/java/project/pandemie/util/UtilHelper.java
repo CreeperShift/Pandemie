@@ -39,10 +39,10 @@ public class UtilHelper {
 
 
     /*
-    Scales our city value to 1-10
+    Scales our city value to 0-10
      */
-    public static double scale(final double valueIn, final double baseMin, final double baseMax) {
-        return ((10d - 0d) * (valueIn - baseMin) / (baseMax - baseMin)) + 0d;
+    public static int scale(final int valueIn, final int baseMin, final int baseMax) {
+        return Math.round((float) 10 * (float) (valueIn - baseMin) / (float) (baseMax - baseMin));
     }
 
 }

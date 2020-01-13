@@ -1,5 +1,7 @@
 package project.pandemie.data;
 
+import project.pandemie.util.UtilHelper;
+
 import java.util.*;
 
 public class CityWrapper {
@@ -30,11 +32,11 @@ public class CityWrapper {
                 min = c.getValue();
             }
         }
+        final int maxF = max;
+        final int minF = min;
 
-        cityMap.forEach((k, v) -> {
-
-        });
-
+        cityMap.forEach((k, v) -> v.setValueScaled(UtilHelper.scale(v.getValue(), maxF, minF))
+        );
     }
 
     /*
