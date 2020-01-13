@@ -93,7 +93,7 @@ public class Round {
         return cityWrapper;
     }
 
-    public Collection<Pathogen> getPathogens() {
+    public List<Pathogen> getPathogens() {
         return pathogens;
     }
 

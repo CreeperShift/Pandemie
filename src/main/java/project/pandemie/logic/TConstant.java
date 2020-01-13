@@ -14,7 +14,6 @@ public class TConstant {
     public static final float MOBILITY_SPREAD_RADIUS = 500f;
 
 
-
     /*
     Movepoint threshholds
      */
@@ -22,5 +21,14 @@ public class TConstant {
     public static final int MOVE_IGNORE_MED = 10;
     public static final int MOVE_IGNORE_HIGH = 5;
 
+
+    /*
+    City value
+     */
+    public static final float CITY_VALUE_INFECTED_MULT = 0.2f;
+    public static final float CITY_VALUE_NOT_INFECTED_MULT = 1.3f;
+
+    public static final int CITY_HYGIENE_THRESHOLD = 0;
+    public static final int CITY_AWARENESS_THRESHOLD = 0;
 }
 

@@ -1,5 +1,6 @@
 package project.pandemie.data;
 
+import project.pandemie.logic.TConstant;
 import project.pandemie.util.UtilHelper;
 
 import java.util.ArrayList;
@@ -7,6 +8,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class City {
+
+    public int getValueScaled() {
+        return valueScaled;
+    }
+
+    public void setValueScaled(int valueScaled) {
+        this.valueScaled = valueScaled;
+    }
 
     public static class Builder {
 
@@ -101,6 +110,8 @@ public class City {
     private boolean isInfected;
     public ScoreHolder scoreHolder;
     public Population pop;
+    private int value;
+    private int valueScaled;
 
     public String getName() {
         return name;
@@ -154,6 +165,7 @@ public class City {
         calculateScores();
         isInfected = isInfected();
         pop = calculatePopulation();
+        value = calculateValue();
     }
 
     private void calculateScores() {
@@ -170,6 +182,16 @@ public class City {
             }
         }
         return false;
+    }
+
+    private int calculateValue() {
+        if (isInfected()) {
+            int actualPop = pop.size() - pop.getInfectedPopulation();
+            int infectedPop = (int) ((float) pop.getInfectedPopulation() * TConstant.CITY_VALUE_INFECTED_MULT);
+            return actualPop + infectedPop;
+        } else {
+            return (int) ((float) pop.size() * TConstant.CITY_VALUE_NOT_INFECTED_MULT);
+        }
     }
 
     private Population calculatePopulation() {
@@ -214,5 +236,9 @@ public class City {
     @Override
     public int hashCode() {
         return Objects.hash(getName());
+    }
+
+    public int getValue() {
+        return value;
     }
 }

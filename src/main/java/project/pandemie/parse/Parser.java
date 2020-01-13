@@ -1,7 +1,6 @@
 package project.pandemie.parse;
 
 import com.google.gson.*;
-import project.pandemie.Main;
 import project.pandemie.api.IParser;
 import project.pandemie.data.City;
 import project.pandemie.data.CityWrapper;

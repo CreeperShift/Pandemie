@@ -1,15 +1,13 @@
 package project.pandemie.logic;
 
+import project.pandemie.Main;
 import project.pandemie.api.ILogic;
 import project.pandemie.api.IStrategy;
 import project.pandemie.data.City;
 import project.pandemie.data.Events;
 import project.pandemie.data.Pathogen;
 import project.pandemie.data.Round;
-import project.pandemie.data.move.Move;
-import project.pandemie.data.move.MoveCloseAirport;
-import project.pandemie.data.move.MoveCloseConnection;
-import project.pandemie.data.move.MoveEndRound;
+import project.pandemie.data.move.*;
 import project.pandemie.logic.testing.MobilityTester;
 
 import java.util.ArrayList;
@@ -32,6 +30,9 @@ public class Actor implements ILogic {
         this.round = round;
     }
 
+    public void addMove(Move m) {
+        moveList.add(m);
+    }
 
     @Override
     public List<Move> getMoves() {
@@ -39,6 +40,24 @@ public class Actor implements ILogic {
         checkPathogens();
         checkCities();
         decideMoves();
+        if (round.getRound() == 1) {
+            Main.mobilityTester.addActor(this);
+            Main.mobilityTester.addRound(round);
+        }
+
+        if (round.getRound() == 2) {
+            Main.mobilityTester.addRound(round);
+        }
+
+
+//        if(round.getRound() == 3){
+//            for(Events e : round.getEvents()){
+//                if(e.hasPathogen()){
+//                    moveList.add(new MoveDevelopVaccine(e.getPathogen().getName()));
+//                    break;
+//                }
+//            }
+//        }
 
         endRound();
         return moveList;
@@ -112,7 +131,6 @@ public class Actor implements ILogic {
 
     private void decideMoves() {
 
-        IStrategy strategy = new StrategyTest(round, potentialMoves);
 
     }
 

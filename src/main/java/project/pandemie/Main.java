@@ -28,7 +28,7 @@ public class Main {
     static List<Move> moveList = new ArrayList<>();
     static IParser parser;
 
-    private static MobilityTester mobilityTester = new MobilityTester();
+    public static MobilityTester mobilityTester = new MobilityTester();
 
     public static LogWriter cityEventLog, eventLog, pathogenLog, debugLog;
 
@@ -47,12 +47,11 @@ public class Main {
 
             if (moveList.isEmpty()) {
 
-
                 /*
                 Read req and translate it into a ROUND object
                  */
                 Round r = parser.parseRound(req.body());
-
+                System.out.println("r: " + r.getRound());
                 /*
                 We don't save states so it creates a new Actor
                  */
@@ -98,9 +97,9 @@ public class Main {
     private static void doLogging(Round r) throws IOException {
         if (cliArgs.doLogging()) {
 
-            if (r.getRound() <= 2) {
-                mobilityTester.addRound(r);
-            }
+//            if (r.getRound() <= 2) {
+//                mobilityTester.addRound(r);
+//            }
 
             if (r.getRound() == 1) {
                 for (Events e : r.getEvents()) {
@@ -111,7 +110,7 @@ public class Main {
             }
 
             for (Events e : r.getEvents()) {
-                if (e.getPathogen() == null) {
+                if (!e.getType().equalsIgnoreCase("pathogenEncountered")) {
                     eventLog.log(e.toString());
                 }
             }

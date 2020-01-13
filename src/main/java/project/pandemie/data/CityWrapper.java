@@ -7,12 +7,34 @@ public class CityWrapper {
     private HashMap<String, City> cityMap;
     private Population population;
     private int biggestPopulation;
+    private int smallestPopulation;
 
     public CityWrapper(HashMap<String, City> cityMap) {
         this.cityMap = cityMap;
         this.cityMap.forEach((k, v) -> v.process());
         this.population = calculatePopulation();
         this.biggestPopulation = calculateBiggestPopulation();
+        this.smallestPopulation = calculateSmallestPopulation();
+        scale();
+    }
+
+    private void scale() {
+        int max = 0;
+        int min = Integer.MAX_VALUE;
+
+        for (City c : cityMap.values()) {
+            if (c.getValue() > max) {
+                max = c.getValue();
+            }
+            if (c.getValue() < min) {
+                min = c.getValue();
+            }
+        }
+
+        cityMap.forEach((k, v) -> {
+
+        });
+
     }
 
     /*
@@ -33,6 +55,16 @@ public class CityWrapper {
         int pop = 0;
         for (City c : cityMap.values()) {
             if (c.getPopulation().size() > pop) {
+                pop = c.getPopulation().size();
+            }
+        }
+        return pop;
+    }
+
+    private int calculateSmallestPopulation() {
+        int pop = 0;
+        for (City c : cityMap.values()) {
+            if (c.getPopulation().size() < pop) {
                 pop = c.getPopulation().size();
             }
         }
@@ -98,4 +130,7 @@ public class CityWrapper {
         return col;
     }
 
+    public int getSmallestPopulation() {
+        return smallestPopulation;
+    }
 }

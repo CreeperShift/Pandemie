@@ -4,6 +4,8 @@ import project.pandemie.Main;
 import project.pandemie.data.City;
 import project.pandemie.data.Events;
 import project.pandemie.data.Round;
+import project.pandemie.data.move.MoveQuarantine;
+import project.pandemie.logic.Actor;
 import project.pandemie.util.UtilHelper;
 
 import java.io.IOException;
@@ -17,16 +19,29 @@ public class MobilityTester {
 
     Round r1;
     Round r2;
+    Actor a;
 
     public void addRound(Round r) {
-        if (r1 == null) {
+        if (r1 == null && r.getRound() == 1) {
             r1 = r;
-        } else {
+            setQuarantine();
+        } else if (r2 == null && r.getRound() == 2) {
             r2 = r;
             test();
 
-            System.out.println("connected?: " + isConnected(r2.getCityWrapper().getCities().get("عمان"), r2.getCityWrapper().getCities().get("ירושלים")));
+            // System.out.println("connected?: " + isConnected(r2.getCityWrapper().getCities().get("عمان"), r2.getCityWrapper().getCities().get("ירושלים")));
         }
+    }
+
+    private void setQuarantine() {
+
+        List<City> citiesInfected = r1.getCityWrapper().getCityList(true);
+        System.out.println(citiesInfected.get(2).getName());
+        a.addMove(new MoveQuarantine(2, citiesInfected.get(2).getName()));
+    }
+
+    public void addActor(Actor a) {
+        this.a = a;
     }
 
     private boolean isConnected(City c1, City c2) {
@@ -37,7 +52,6 @@ public class MobilityTester {
         queue.add(c1);
 
         do {
-
             for (String con : queue.remove().getConnections()) {
                 if (con.equals(c2.getName())) {
                     return true;
@@ -119,13 +133,15 @@ public class MobilityTester {
             for (City testCity : test) {
                 boolean didInfect = false;
                 String path = "";
-                for (Events e : initialCity.getEvents()) {
-                    if (e.hasPathogen()) {
-                        for (Events ev : testCity.getEvents()) {
-                            if (ev.hasPathogen()) {
-                                if (e.getPathogen().equals(ev.getPathogen())) {
-                                    didInfect = true;
-                                    path = e.getPathogen().getName();
+                if (initialCity.hasEvents()) {
+                    for (Events e : initialCity.getEvents()) {
+                        if (e.hasPathogen()) {
+                            for (Events ev : testCity.getEvents()) {
+                                if (ev.hasPathogen()) {
+                                    if (e.getPathogen().equals(ev.getPathogen())) {
+                                        didInfect = true;
+                                        path = e.getPathogen().getName();
+                                    }
                                 }
                             }
                         }

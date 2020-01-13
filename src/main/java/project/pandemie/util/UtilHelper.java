@@ -37,4 +37,12 @@ public class UtilHelper {
         return R * c;
     }
 
+
+    /*
+    Scales our city value to 1-10
+     */
+    public static double scale(final double valueIn, final double baseMin, final double baseMax) {
+        return ((10d - 0d) * (valueIn - baseMin) / (baseMax - baseMin)) + 0d;
+    }
+
 }
