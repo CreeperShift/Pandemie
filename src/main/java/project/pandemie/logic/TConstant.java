@@ -31,5 +31,6 @@ public class TConstant {
     public static final int CITY_HYGIENE_THRESHOLD = 0;
     public static final int CITY_AWARENESS_THRESHOLD = 0;
     public static final int CITY_ANTIVAX_THRESHOLD = 6;
+    public static final int INITIAL_CITY_QUARANTINE_LENGTH = 2;
 }
 

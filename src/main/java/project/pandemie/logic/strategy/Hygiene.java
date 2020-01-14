@@ -20,7 +20,7 @@ public class Hygiene implements IStrategy {
 
     @Override
     public List<Move> decideMoves() {
-        ArrayList<City> cityList = new ArrayList<City>(round.getCityWrapper().getCities().values());
+        ArrayList<City> cityList = new ArrayList<>(round.getCityWrapper().getCities().values());
         cityList.sort(Comparator.comparingInt(City::getValue));
 
         return getMoveList(cityList);
