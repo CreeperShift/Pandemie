@@ -6,7 +6,7 @@
 
 ### 1. Introduction
 
-This repository contains our submission for [InformatiCup2020](https://github.com/informatiCup/informatiCup2020). Pandemie2020 attempts to stop the spreading of pathogens in a semi-realistic, but simplified, model of the world. It introduces pathogens in a round-based webservice, where it makes decision pased on prior analysis, which will ultimately save or destroy the world.
+This repository contains our submission for [InformatiCup2020](https://github.com/informatiCup/informatiCup2020). Pandemie2020 attempts to stop the spreading of pathogens in a semi-realistic, but simplified, model of the world. It introduces pathogens in a round-based webservice, where it makes decision based on prior analysis, which will ultimately save or destroy the world.
 
 ---
 
@@ -26,7 +26,7 @@ Check out the paragraph titled "Running the docker container"
 
 > I want to read the full documentation.
 
-You have 2 options here. Either head over to our github page, [Pandemie Page](https://creepershift.github.io/Pandemie/), to read it all online, or download the latest Documentation file in the /docs folder in the repository. You will require a recent version of [LibreOffice](https://www.libreoffice.org/)to read it.
+You have 2 options here. Either head over to our github page, [Pandemie Page](https://creepershift.github.io/Pandemie/), to read it all online, or download the latest Documentation file, "Documentation.pdf" in the /docs folder of the repository.
 
 ---
 
