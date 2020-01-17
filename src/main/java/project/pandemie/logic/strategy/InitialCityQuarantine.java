@@ -6,7 +6,7 @@ import project.pandemie.data.Events;
 import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
 import project.pandemie.data.move.MoveQuarantine;
-import project.pandemie.logic.TConstant;
+import project.pandemie.logic.Protocols;
 
 import java.util.*;
 
@@ -27,7 +27,7 @@ public class InitialCityQuarantine implements IStrategy {
         for (City city : round.getCityWrapper().getCityList(true)) {
             for (Events e : city.getEvents()) {
                 if (e.hasPathogen() && e.getPathogen().getName().equalsIgnoreCase(pathogen)) {
-                    moveList.add(new MoveQuarantine(TConstant.INITIAL_CITY_QUARANTINE_LENGTH,city.getName()));
+                    moveList.add(new MoveQuarantine(Protocols.INITIAL_CITY_QUARANTINE_LENGTH,city.getName()));
                     break;
                 }
             }

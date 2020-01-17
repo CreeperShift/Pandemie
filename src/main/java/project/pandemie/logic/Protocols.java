@@ -1,6 +1,6 @@
 package project.pandemie.logic;
 
-public class TConstant {
+public class Protocols {
 
     public static final int CITY_SCORE_IGNORE = 5;
     public static final int CONNECTION_INFECTIOUS_PATHOGEN = -1;

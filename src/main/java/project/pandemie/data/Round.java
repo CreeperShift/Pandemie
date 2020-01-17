@@ -99,6 +99,10 @@ public class Round {
         return testEventType("vaccineAvailable");
     }
 
+    public boolean isDevelopVaccine() {
+        return testEventType("vaccineInDevelopment");
+    }
+
     public boolean haveMedication() {
         return testEventType("medicationAvailable");
     }
@@ -110,6 +114,16 @@ public class Round {
             }
         }
         return false;
+    }
+
+    public List<Events> getEventByType(String type) {
+        List<Events> returnList = new ArrayList<>();
+        for (Events e : events) {
+            if (e.getType().equalsIgnoreCase(type)) {
+                returnList.add(e);
+            }
+        }
+        return returnList;
     }
 
     @Override

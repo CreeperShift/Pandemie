@@ -10,11 +10,11 @@ import project.pandemie.data.move.MoveDevelopVaccine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateVaccine implements IStrategy {
+public class CreateInitialVaccine implements IStrategy {
 
     private final Round round;
 
-    public CreateVaccine(Round round) {
+    public CreateInitialVaccine(Round round) {
         this.round = round;
     }
 

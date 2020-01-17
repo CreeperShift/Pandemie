@@ -1,14 +1,11 @@
 package project.pandemie.logic;
 
-import project.pandemie.Main;
 import project.pandemie.api.ILogic;
-import project.pandemie.api.IStrategy;
 import project.pandemie.data.City;
 import project.pandemie.data.Events;
 import project.pandemie.data.Pathogen;
 import project.pandemie.data.Round;
 import project.pandemie.data.move.*;
-import project.pandemie.logic.testing.MobilityTester;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +79,7 @@ public class Actor implements ILogic {
     private void checkCities() {
 
         for (City c : round.getCities().values()) {
-            if (c.getScoreHolder().getScore() > TConstant.CITY_SCORE_IGNORE) {
+            if (c.getScoreHolder().getScore() > Protocols.CITY_SCORE_IGNORE) {
                 continue;
             }
             /*
@@ -101,12 +98,12 @@ public class Actor implements ILogic {
                 }
             }
 
-            if (count > TConstant.CONNECTION_CLOSE_AIRPORT) {
-                potentialMoves.add(new MoveCloseAirport(TConstant.AIRPORT_CLOSE_ROUNDS, c.getName())); //TODO: Add severity modifier
+            if (count > Protocols.CONNECTION_CLOSE_AIRPORT) {
+                potentialMoves.add(new MoveCloseAirport(Protocols.AIRPORT_CLOSE_ROUNDS, c.getName())); //TODO: Add severity modifier
             } else if (count > 0) {
                 for (int i = 0; i < takeAction.length; i++) {
                     if (takeAction[i]) {
-                        potentialMoves.add(new MoveCloseConnection(TConstant.CONNECTION_CLOSE_ROUNDS, c.getName(), c.getConnections()[i])); //TODO: Add severity modifier
+                        potentialMoves.add(new MoveCloseConnection(Protocols.CONNECTION_CLOSE_ROUNDS, c.getName(), c.getConnections()[i])); //TODO: Add severity modifier
                     }
                 }
             }
@@ -120,7 +117,7 @@ public class Actor implements ILogic {
         City c = round.getCities().get(city);
         if (c.hasEvents()) {
             for (Events e : c.getEvents()) {
-                if (e.getPathogen() != null && (e.getPathogen().getInfectivity() > TConstant.CONNECTION_INFECTIOUS_PATHOGEN || e.getPathogen().getPathogenScore() > TConstant.CONNECTION_PATHOGEN_THRESHOLD)) {
+                if (e.getPathogen() != null && (e.getPathogen().getInfectivity() > Protocols.CONNECTION_INFECTIOUS_PATHOGEN || e.getPathogen().getPathogenScore() > Protocols.CONNECTION_PATHOGEN_THRESHOLD)) {
                     return true;
                 }
             }

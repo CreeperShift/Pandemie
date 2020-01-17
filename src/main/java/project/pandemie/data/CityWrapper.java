@@ -91,6 +91,20 @@ public class CityWrapper {
         return col;
     }
 
+    public List<City> getCityList(String pathogen) {
+        List<City> col = new ArrayList<>();
+        for (City c : cityMap.values()) {
+            if (c.isCityInfected()) {
+                for (Events e : c.getEvents()) {
+                    if (e.hasPathogen() && e.getPathogen().getName().equalsIgnoreCase(pathogen)) {
+                        col.add(c);
+                    }
+                }
+            }
+        }
+        return col;
+    }
+
     /*
     TODO: Rewrite this monstrosity & move to ScoreHolder?.
      */

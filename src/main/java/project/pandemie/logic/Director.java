@@ -6,9 +6,11 @@ which I have been watching the past few days....
  */
 
 import project.pandemie.api.ILogic;
+import project.pandemie.api.IStrategy;
 import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
 import project.pandemie.data.move.MoveEndRound;
+import project.pandemie.logic.strategy.CreateInitialVaccine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,16 @@ public class Director implements ILogic {
     }
 
     private void checkCreateVaccines() {
+        if (round.getPoints() >= 40) {
+            if (!existVaccine()) {
+                IStrategy initialVaccine = new CreateInitialVaccine(round);
+                potentialMoves.add(initialVaccine.decideMoves());
+            }
+        }
+    }
+
+    private boolean existVaccine() {
+        return round.isDevelopVaccine() || round.haveVaccines();
     }
 
     private void checkMedication() {

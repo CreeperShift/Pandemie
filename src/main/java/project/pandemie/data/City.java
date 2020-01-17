@@ -1,6 +1,6 @@
 package project.pandemie.data;
 
-import project.pandemie.logic.TConstant;
+import project.pandemie.logic.Protocols;
 import project.pandemie.util.UtilHelper;
 
 import java.util.ArrayList;
@@ -187,10 +187,10 @@ public class City {
     private int calculateValue() {
         if (isInfected()) {
             int actualPop = pop.size() - pop.getInfectedPopulation();
-            int infectedPop = (int) ((float) pop.getInfectedPopulation() * TConstant.CITY_VALUE_INFECTED_MULT);
+            int infectedPop = (int) ((float) pop.getInfectedPopulation() * Protocols.CITY_VALUE_INFECTED_MULT);
             return actualPop + infectedPop;
         } else {
-            return (int) ((float) pop.size() * TConstant.CITY_VALUE_NOT_INFECTED_MULT);
+            return (int) ((float) pop.size() * Protocols.CITY_VALUE_NOT_INFECTED_MULT);
         }
     }
 
