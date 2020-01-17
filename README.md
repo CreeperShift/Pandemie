@@ -34,7 +34,7 @@ You have 2 options here. Either head over to our github page, [Pandemie Page](ht
 
 
 
-### 3. B### uilding from Source
+### 3. Building from Source
 
 Building from source is rather easy thanks to [Gradle Build Tool](https://gradle.org/). All that is required is  a JDK version of Java 11 installed and a proper JAVA_HOME exists. The Gradle binary is distributed with the source code.
 
@@ -57,7 +57,7 @@ Building from source is rather easy thanks to [Gradle Build Tool](https://gradle
 
 
 
-### 4. R### unning from source file
+### 4. Running from source file
 
 This step assumes you have a working and setup version of Java 11 installed on your computer and have built the jar file according to step 3.
 
