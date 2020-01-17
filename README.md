@@ -80,4 +80,6 @@ If you want to run the jar with custom arguments, take a look at this table:
 
 
 
+### License
 
+Logo made using icons by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
