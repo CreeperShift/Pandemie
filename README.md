@@ -1,4 +1,4 @@
-# Pandemie InformatiCup2020
+![](/assets/logo.png)
 
 ###### by Max Henkes
 
