@@ -36,7 +36,7 @@ You have 2 options here. Either head over to our github page, [Pandemie Page](ht
 
 ### 3. Building from Source
 
-Building from source is rather easy thanks to [Gradle Build Tool](https://gradle.org/). All that is required is  a JDK version of Java 11 installed and a proper JAVA_HOME exists. The Gradle binary is distributed with the source code.
+Building from source is rather easy thanks to [Gradle Build Tool](https://gradle.org/). All that is required is a JDK version of Java 11 installed and a proper JAVA_HOME entry in your os. The Gradle binary is distributed with the source code.
 
 1. Simple download the repository to your computer
 
@@ -59,9 +59,9 @@ Building from source is rather easy thanks to [Gradle Build Tool](https://gradle
 
 ### 4. Running from source file
 
-This step assumes you have a working and setup version of Java 11 installed on your computer and have built the jar file according to step 3.
+This step assumes you have a working setup of Java 11 installed on your computer and have built the jar file according to step 3.
 
-You can run the program with default arguments using
+You can now run the program with default cmd arguments using
 
 ```powershell
 java -jar /build/libs/pandemie-version.jar
@@ -69,8 +69,9 @@ java -jar /build/libs/pandemie-version.jar
 
 If you want to run the jar with custom arguments, take a look at this table:
 
-| -e <number> | --port <number>      | Changes the port from default 50123                                              |
+| Arg         | alt. Arg             | Changes                                                                          |
 |:-----------:| -------------------- | -------------------------------------------------------------------------------- |
+| -e <number> | --port <number>      | Changes the port from default 50123                                              |
 | -l          | --logging            | Enables logging of various events                                                |
 | -v          | --visual             | Enables visualisation (does not work inside docker or on a server with cmd only) |
 | -t <number> | --sleepTime <number> | Time to sleep between rounds. Can be used to better visualize changes.           |
