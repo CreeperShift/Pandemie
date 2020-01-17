@@ -5,7 +5,7 @@ import project.pandemie.data.City;
 import project.pandemie.data.Events;
 import project.pandemie.data.Round;
 import project.pandemie.data.move.MoveQuarantine;
-import project.pandemie.logic.Director;
+import project.pandemie.logic.Actor;
 import project.pandemie.util.UtilHelper;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class MobilityTester {
 
     Round r1;
     Round r2;
-    Director a;
+    Actor a;
 
     public void addRound(Round r) {
         if (r1 == null && r.getRound() == 1) {
@@ -40,7 +40,7 @@ public class MobilityTester {
         a.addMove(new MoveQuarantine(2, citiesInfected.get(2).getName()));
     }
 
-    public void addActor(Director a) {
+    public void addActor(Actor a) {
         this.a = a;
     }
 

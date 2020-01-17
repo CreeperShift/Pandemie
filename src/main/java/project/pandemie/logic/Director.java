@@ -1,142 +1,98 @@
 package project.pandemie.logic;
 
-import project.pandemie.Main;
+/*
+Totally not a reference to the TV Series Travelers
+which I have been watching the past few days....
+ */
+
 import project.pandemie.api.ILogic;
-import project.pandemie.api.IStrategy;
-import project.pandemie.data.City;
-import project.pandemie.data.Events;
-import project.pandemie.data.Pathogen;
 import project.pandemie.data.Round;
-import project.pandemie.data.move.*;
-import project.pandemie.logic.testing.MobilityTester;
+import project.pandemie.data.move.Move;
+import project.pandemie.data.move.MoveEndRound;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Director implements ILogic {
 
-    private List<Move> moveList = new ArrayList<>();
-
-    private List<Move> potentialMoves = new ArrayList<>();
-
-    private boolean hasDeadlyPathogen = false;
-    private boolean hasMobilePathogen = false;
-    private boolean hasInfectiousPathogen = false;
-    private boolean hasVaccine = false;
-    private boolean hasMedication = false;
-    private Round round;
+    private List<List<Move>> potentialMoves = new ArrayList<>();
+    private final Round round;
 
     public Director(Round round) {
         this.round = round;
     }
 
-    public void addMove(Move m) {
-        moveList.add(m);
-    }
-
     @Override
     public List<Move> getMoves() {
 
-        checkPathogens();
-        checkCities();
-        decideMoves();
-//        if (round.getRound() == 1) {
-//            Main.mobilityTester.addActor(this);
-//            Main.mobilityTester.addRound(round);
-//        }
-//
-//        if (round.getRound() == 2) {
-//            Main.mobilityTester.addRound(round);
-//        }
+        actOrSavePoints();
+        checkVaccines();
+        checkMedication();
+        checkCreateVaccines();
+        checkCreateMedication();
+        checkQuarantine();
+        checkCloseConnection();
+        checkCloseAirport();
+        pushHygiene();
+        reactEvents();
 
 
-//        if(round.getRound() == 3){
-//            for(Events e : round.getEvents()){
-//                if(e.hasPathogen()){
-//                    moveList.add(new MoveDevelopVaccine(e.getPathogen().getName()));
-//                    break;
-//                }
-//            }
-//        }
+        return decideAction();
+    }
 
-        endRound();
+    /*
+    Takes potentialMoves and decides on what to actually do!
+     */
+    private List<Move> decideAction() {
+        List<Move> moveList = new ArrayList<>();
+        for (Move m : potentialMoves.get(0)) {
+            if (m.getType().equalsIgnoreCase("endRound")) {
+                moveList.add(new MoveEndRound());
+                return moveList;
+            }
+        }
+
+        /*
+        Always end our list with endRound.
+         */
+        moveList.add(new MoveEndRound());
         return moveList;
     }
 
-    private void checkPathogens() {
-
-        for (Pathogen p : round.getPathogens()) {
-            if (!hasDeadlyPathogen && p.getLethality() > 1) {
-                hasDeadlyPathogen = true;
-            }
-            if (!hasMobilePathogen && p.getMobility() > 1) {
-                hasMobilePathogen = true;
-            }
-            if (!hasInfectiousPathogen && p.getInfectivity() > 1) {
-                hasInfectiousPathogen = true;
-            }
-        }
-
+    private void reactEvents() {
     }
 
-    private void checkCities() {
+    private void pushHygiene() {
+    }
 
-        for (City c : round.getCities().values()) {
-            if (c.getScoreHolder().getScore() > TConstant.CITY_SCORE_IGNORE) {
-                continue;
-            }
-            /*
-            Look at pathogens & events + modify score should happen in city class
-             */
+    private void checkCloseAirport() {
+    }
 
+    private void checkCloseConnection() {
+    }
 
-            boolean[] takeAction = new boolean[c.getConnections().length];
-            for (int i = 0; i < c.getConnections().length; i++) {
-                takeAction[i] = checkConnection(c.getConnections()[i]);
-            }
-            int count = 0;
-            for (boolean b : takeAction) {
-                if (b) {
-                    count++;
-                }
-            }
+    private void checkQuarantine() {
+    }
 
-            if (count > TConstant.CONNECTION_CLOSE_AIRPORT) {
-                potentialMoves.add(new MoveCloseAirport(TConstant.AIRPORT_CLOSE_ROUNDS, c.getName())); //TODO: Add severity modifier
-            } else if (count > 0) {
-                for (int i = 0; i < takeAction.length; i++) {
-                    if (takeAction[i]) {
-                        potentialMoves.add(new MoveCloseConnection(TConstant.CONNECTION_CLOSE_ROUNDS, c.getName(), c.getConnections()[i])); //TODO: Add severity modifier
-                    }
-                }
-            }
+    private void checkCreateMedication() {
+    }
 
+    private void checkCreateVaccines() {
+    }
 
+    private void checkMedication() {
+        if (round.haveMedication()) {
+            //TODO: ADD LOGIC
         }
     }
 
-    private boolean checkConnection(String city) {
-
-        City c = round.getCities().get(city);
-        if (c.hasEvents()) {
-            for (Events e : c.getEvents()) {
-                if (e.getPathogen() != null && (e.getPathogen().getInfectivity() > TConstant.CONNECTION_INFECTIOUS_PATHOGEN || e.getPathogen().getPathogenScore() > TConstant.CONNECTION_PATHOGEN_THRESHOLD)) {
-                    return true;
-                }
-            }
+    private void checkVaccines() {
+        if (round.haveVaccines()) {
+            //TODO: ADD LOGIC
         }
-
-        return false;
     }
 
-    private void decideMoves() {
-
-
+    private void actOrSavePoints() {
+        //TODO:Implement Strategy
     }
-
-
-    public void endRound() {
-        moveList.add(new MoveEndRound());
-    }
-
 }

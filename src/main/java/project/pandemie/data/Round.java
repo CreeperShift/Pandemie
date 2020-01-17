@@ -38,8 +38,6 @@ public class Round {
             r.points = points;
             r.cityWrapper = cityWrapper;
             r.events = events;
-//            r.worldPopulation = calculatePopulation();
-//            r.infectedPopulation = calculateInfected();
             r.pathogens = getPathogens();
 
             return r;
@@ -97,6 +95,22 @@ public class Round {
         return pathogens;
     }
 
+    public boolean haveVaccines() {
+        return testEventType("vaccineAvailable");
+    }
+
+    public boolean haveMedication() {
+        return testEventType("medicationAvailable");
+    }
+
+    private boolean testEventType(String type) {
+        for (Events e : events) {
+            if (e.getType().equalsIgnoreCase(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String toString() {

@@ -8,7 +8,7 @@ import project.pandemie.data.Events;
 import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
 import project.pandemie.logging.LogWriter;
-import project.pandemie.logic.Director;
+import project.pandemie.logic.Actor;
 import project.pandemie.logic.testing.MobilityTester;
 import project.pandemie.parse.Parser;
 import project.pandemie.util.Args;
@@ -71,7 +71,7 @@ public class Main {
                 /*
                 We don't save states so it creates a new Actor
                  */
-                ILogic logic = new Director(r);
+                ILogic logic = new Actor(r);
 
                 /*
                 moveList contains all moves INCLUDING
