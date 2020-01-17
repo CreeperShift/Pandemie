@@ -8,7 +8,7 @@ import project.pandemie.data.Events;
 import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
 import project.pandemie.logging.LogWriter;
-import project.pandemie.logic.Actor;
+import project.pandemie.logic.Director;
 import project.pandemie.logic.testing.MobilityTester;
 import project.pandemie.parse.Parser;
 import project.pandemie.util.Args;
@@ -52,10 +52,26 @@ public class Main {
                  */
                 Round r = parser.parseRound(req.body());
                 System.out.println("r: " + r.getRound());
+                for (Events e : r.getEvents()) {
+                    if (e.hasPathogen()) {
+                        System.out.println(e.getPathogen().toString());
+                    }
+                }
+                for (City c : r.getCityWrapper().getCities().values()) {
+                    if (c.getName().equalsIgnoreCase("Hamburg")) {
+                        if (c.hasEvents()) {
+                            for (Events e : c.getEvents()) {
+                                if (e.hasPathogen()) {
+                                    System.out.println(e.getPathogen().getName());
+                                }
+                            }
+                        }
+                    }
+                }
                 /*
                 We don't save states so it creates a new Actor
                  */
-                ILogic logic = new Actor(r);
+                ILogic logic = new Director(r);
 
                 /*
                 moveList contains all moves INCLUDING

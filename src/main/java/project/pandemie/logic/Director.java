@@ -13,7 +13,7 @@ import project.pandemie.logic.testing.MobilityTester;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Actor implements ILogic {
+public class Director implements ILogic {
 
     private List<Move> moveList = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class Actor implements ILogic {
     private boolean hasMedication = false;
     private Round round;
 
-    public Actor(Round round) {
+    public Director(Round round) {
         this.round = round;
     }
 
@@ -40,14 +40,14 @@ public class Actor implements ILogic {
         checkPathogens();
         checkCities();
         decideMoves();
-        if (round.getRound() == 1) {
-            Main.mobilityTester.addActor(this);
-            Main.mobilityTester.addRound(round);
-        }
-
-        if (round.getRound() == 2) {
-            Main.mobilityTester.addRound(round);
-        }
+//        if (round.getRound() == 1) {
+//            Main.mobilityTester.addActor(this);
+//            Main.mobilityTester.addRound(round);
+//        }
+//
+//        if (round.getRound() == 2) {
+//            Main.mobilityTester.addRound(round);
+//        }
 
 
 //        if(round.getRound() == 3){
