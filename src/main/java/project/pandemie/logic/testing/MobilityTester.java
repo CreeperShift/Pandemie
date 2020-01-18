@@ -24,7 +24,7 @@ public class MobilityTester {
     public void addRound(Round r) {
         if (r1 == null && r.getRound() == 1) {
             r1 = r;
-            setQuarantine();
+            //   setQuarantine();
         } else if (r2 == null && r.getRound() == 2) {
             r2 = r;
             test();
@@ -78,8 +78,6 @@ public class MobilityTester {
     private void test() {
 
         List<City> cityListInfected = r1.getCityWrapper().getCityList(true);
-        List<String> connections = new ArrayList<>();
-        List<City> citiesToTest = new ArrayList<>();
 
 
         for (Events e : r1.getEvents()) {
@@ -93,69 +91,36 @@ public class MobilityTester {
         }
 
 
-        cityListInfected.forEach(c -> connections.addAll(List.of(c.getConnections())));
+        List<List<City>> pathogenCityList = new ArrayList<>();
 
-        for (City c : r1.getCityWrapper().getCities().values()) {
-            AtomicBoolean test = new AtomicBoolean(false);
-            connections.forEach(con -> {
-                if (c.getName().equalsIgnoreCase(con)) {
-                    test.set(true);
-                }
-            });
-            if (!c.isCityInfected() && !test.get()) {
-                citiesToTest.add(c);
-            }
-        }
+        for (City c : cityListInfected) {
 
-        List<City> citiesInfected = r2.getCityWrapper().getCityList(true);
-        List<City> test = new ArrayList<>();
-
-
-        for (City c : citiesInfected) {
-            for (City b : citiesToTest) {
-                if (c.getName().equalsIgnoreCase(b.getName())) {
-                    test.add(c);
+            for (Events e : c.getEvents()) {
+                if (e.hasPathogen()) {
+                    pathogenCityList.add(r2.getCityWrapper().getCityList(e.getPathogen().getName()));
                 }
             }
-        }
 
-        List<City> initialCities = new ArrayList<>();
-
-        for (City c : r2.getCityWrapper().getCities().values()) {
-            for (City b : cityListInfected) {
-                if (c.getName().equalsIgnoreCase(b.getName())) {
-                    initialCities.add(c);
-                }
-            }
-        }
-
-        for (City initialCity : initialCities) {
-            for (City testCity : test) {
-                boolean didInfect = false;
+            for (int i = 0; i < pathogenCityList.size(); i++) {
                 String path = "";
-                if (initialCity.hasEvents()) {
-                    for (Events e : initialCity.getEvents()) {
-                        if (e.hasPathogen()) {
-                            for (Events ev : testCity.getEvents()) {
-                                if (ev.hasPathogen()) {
-                                    if (e.getPathogen().equals(ev.getPathogen())) {
-                                        didInfect = true;
-                                        path = e.getPathogen().getName();
-                                    }
-                                }
-                            }
-                        }
+                for (Events e : cityListInfected.get(i).getEvents()) {
+                    if (e.hasPathogen()) {
+                        path = e.getPathogen().getName();
                     }
                 }
-                if (didInfect) {
+
+                for (City cit : pathogenCityList.get(i)) {
                     try {
-                        Main.debugLog.log(initialCity.getName() + " | " + path + " | " + " ---> " + testCity.getName() + ": " + Math.floor(UtilHelper.haversine(initialCity.getLatitude(), initialCity.getLongitude(), testCity.getLatitude(), testCity.getLongitude())));
+                        Main.debugLog.log(cityListInfected.get(i).getName() + " | " + path + " | " + " ---> " + cit.getName() + ": " + Math.floor(UtilHelper.haversine(cityListInfected.get(i).getLatitude(), cityListInfected.get(i).getLongitude(), cit.getLatitude(), cit.getLongitude())));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+
             }
+
         }
     }
+
 
 }

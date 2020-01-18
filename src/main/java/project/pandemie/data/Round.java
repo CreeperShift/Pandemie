@@ -79,6 +79,10 @@ public class Round {
         return points;
     }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public Map<String, City> getCities() {
         return cityWrapper.getCities();
     }

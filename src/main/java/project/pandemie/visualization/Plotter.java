@@ -40,8 +40,8 @@ public class Plotter implements IVisual {
 
     @Override
     public void visualize(Round r) {
-        population.add(r.getCityWrapper().getCities().get("Hamburg").getPopulation().size());
-        infPopulation.add(r.getCityWrapper().getCities().get("Hamburg").getPopulation().getInfectedPopulation());
+        population.add(r.getCityWrapper().getCities().get("Milwaukee").getPopulation().size());
+        infPopulation.add(r.getCityWrapper().getCities().get("Milwaukee").getPopulation().getInfectedPopulation());
         if (started) {
             chartInstance.updateXYSeries(title, null, population, null);
             chartInstance.updateXYSeries("infected", null, infPopulation, null);

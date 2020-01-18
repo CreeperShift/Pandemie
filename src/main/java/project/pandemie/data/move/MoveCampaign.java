@@ -15,4 +15,9 @@ public class MoveCampaign extends Move {
         return 3;
     }
 
+
+    public String getType() {
+        return type;
+    }
+
 }

@@ -1,5 +1,6 @@
 package project.pandemie.logic;
 
+import project.pandemie.Main;
 import project.pandemie.api.ILogic;
 import project.pandemie.data.City;
 import project.pandemie.data.Events;
@@ -34,27 +35,18 @@ public class Actor implements ILogic {
     @Override
     public List<Move> getMoves() {
 
-        checkPathogens();
-        checkCities();
-        decideMoves();
-//        if (round.getRound() == 1) {
-//            Main.mobilityTester.addActor(this);
-//            Main.mobilityTester.addRound(round);
-//        }
-//
-//        if (round.getRound() == 2) {
-//            Main.mobilityTester.addRound(round);
-//        }
+        if (round.getRound() == 1 || round.getRound() == 2) {
+            Main.mobilityTester.addRound(round);
+        }
+
+        if (round.getRound() == 1) {
+            //moveList.add(new MoveQuarantine(2, "Мінск"));
+            //moveList.add(new MoveCloseConnection(2, "Мінск", "Tolhuin"));
+            moveList.add(new MoveCloseAirport(2, "Springfield (Missouri"));
+        }
 
 
-//        if(round.getRound() == 3){
-//            for(Events e : round.getEvents()){
-//                if(e.hasPathogen()){
-//                    moveList.add(new MoveDevelopVaccine(e.getPathogen().getName()));
-//                    break;
-//                }
-//            }
-//        }
+        System.out.println("Infected cities: " + round.getCityWrapper().getCityList("Φthisis").size());
 
         endRound();
         return moveList;

@@ -11,6 +11,7 @@ import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
 import project.pandemie.data.move.MoveEndRound;
 import project.pandemie.logic.strategy.CreateInitialVaccine;
+import project.pandemie.logic.strategy.InitialCityQuarantine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,11 @@ public class Director implements ILogic {
     @Override
     public List<Move> getMoves() {
 
+        if (round.getRound() == 1) {
+            initialQuarantine();
+            return decideAction();
+        }
+
         actOrSavePoints();
         checkVaccines();
         checkMedication();
@@ -42,16 +48,18 @@ public class Director implements ILogic {
         return decideAction();
     }
 
+    private void initialQuarantine() {
+        IStrategy initQuarantine = new InitialCityQuarantine(round);
+        potentialMoves.add(initQuarantine.decideMoves());
+    }
+
     /*
     Takes potentialMoves and decides on what to actually do!
      */
     private List<Move> decideAction() {
         List<Move> moveList = new ArrayList<>();
-        for (Move m : potentialMoves.get(0)) {
-            if (m.getType().equalsIgnoreCase("endRound")) {
-                moveList.add(new MoveEndRound());
-                return moveList;
-            }
+        if (round.getRound() == 1) {
+            moveList.add(potentialMoves.get(0).get(0));
         }
 
         /*
