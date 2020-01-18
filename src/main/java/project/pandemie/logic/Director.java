@@ -85,6 +85,12 @@ public class Director implements ILogic {
     }
 
     private void checkCreateMedication() {
+        if (round.getPoints() >= 20) {
+            if (!existVaccine()) {
+                IStrategy initialVaccine = new CreateInitialVaccine(round);
+                potentialMoves.add(initialVaccine.decideMoves());
+            }
+        }
     }
 
     private void checkCreateVaccines() {

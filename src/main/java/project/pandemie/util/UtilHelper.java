@@ -1,5 +1,8 @@
 package project.pandemie.util;
 
+import project.pandemie.data.Pathogen;
+
+
 public class UtilHelper {
 
     private UtilHelper() {
@@ -43,6 +46,41 @@ public class UtilHelper {
      */
     public static int scale(final int valueIn, final int baseMin, final int baseMax) {
         return Math.round((float) 10 * (float) (valueIn - baseMin) / (float) (baseMax - baseMin));
+    }
+
+    public static String calculateBiggestThreat(Pathogen a, Pathogen b, String[] priority, boolean flipDuration) {
+        if (priority.length != 4) {
+            return null;
+        }
+
+        int[] pri = {switcheroo(a, b, priority[0], flipDuration), switcheroo(a, b, priority[1], flipDuration), switcheroo(a, b, priority[2], flipDuration), switcheroo(a, b, priority[3], flipDuration)};
+
+        for (int i : pri) {
+            if (i == 0) {
+            } else if (i > 0) {
+                return a.getName();
+            } else {
+                return b.getName();
+            }
+        }
+        return a.getName();
+    }
+
+    private static int switcheroo(Pathogen a, Pathogen b, String priority, boolean flipDuration) {
+        switch (priority) {
+            case "lethality":
+                return a.getLethality() - b.getLethality();
+            case "mobility":
+                return a.getMobility() - b.getMobility();
+            case "duration":
+                if (flipDuration) {
+                    return (a.getDuration() - b.getDuration()) * -1;
+                }
+                return a.getDuration() - b.getDuration();
+            case "infectivity":
+                return a.getInfectivity() - b.getInfectivity();
+        }
+        return 0;
     }
 
 }

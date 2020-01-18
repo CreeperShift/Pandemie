@@ -9,6 +9,7 @@ import project.pandemie.data.Round;
 import project.pandemie.data.move.Move;
 import project.pandemie.logging.LogWriter;
 import project.pandemie.logic.Actor;
+import project.pandemie.logic.Director;
 import project.pandemie.logic.testing.MobilityTester;
 import project.pandemie.parse.Parser;
 import project.pandemie.util.Args;
@@ -30,7 +31,9 @@ public class Main {
 
     public static MobilityTester mobilityTester = new MobilityTester();
 
-    public static LogWriter cityEventLog, eventLog, pathogenLog, debugLog;
+    public static LogWriter cityEventLog, eventLog, pathogenLog, debugLog, winLog;
+    public static int win = 0;
+    public static int lose = 0;
 
     static Args cliArgs;
 
@@ -51,6 +54,16 @@ public class Main {
                 Read req and translate it into a ROUND object
                  */
                 Round r = parser.parseRound(req.body());
+
+                if(r.getOutcome().equalsIgnoreCase("win")){
+                    Main.win++;
+                }
+
+                if(r.getOutcome().equalsIgnoreCase("loss")){
+                    Main.lose++;
+                }
+
+
                 System.out.println("r: " + r.getRound());
                 for (Events e : r.getEvents()) {
                     if (e.hasPathogen()) {
@@ -71,7 +84,7 @@ public class Main {
                 /*
                 We don't save states so it creates a new Actor
                  */
-                ILogic logic = new Actor(r);
+                ILogic logic = new Director(r);
 
                 /*
                 moveList contains all moves INCLUDING
@@ -85,6 +98,11 @@ public class Main {
 
                 doLogging(r);
                 doVisualization(r);
+                if(win+lose >= 100){
+                    winLog.log("win: " + win + " loss: " + lose);
+                }
+
+
 
                 sleep(cliArgs.getSleepTimer());
 
@@ -158,6 +176,7 @@ public class Main {
             eventLog = new LogWriter("C:/Pandemie/events.txt");
             cityEventLog = new LogWriter("C:/Pandemie/cityEvents.txt");
             debugLog = new LogWriter("C:/Pandemie/debug.txt");
+            winLog = new LogWriter("C:/Pandemie/gameLog.txt");
         }
 
         if (cliArgs.doVisualization()) {
