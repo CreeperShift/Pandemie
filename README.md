@@ -6,7 +6,7 @@
 
 ### 1. Introduction
 [ Note ]
-What you see here is our failed project. Turns out team management is harder than coding itself.. What a surprise. Sadly I could not get the other members to actually contributed, which is why this resository will forever remain unfinished.
+What you see here is our failed project. Turns out team management is harder than coding itself.. What a surprise. Sadly I could not get the other members to actually contributed, which is why this repository will forever remain unfinished.
 
 
 This repository contains our submission for [InformatiCup2020](https://github.com/informatiCup/informatiCup2020). Protocol 1 attempts to stop the spreading of pathogens in a semi-realistic, but simplified, model of the world. It introduces pathogens in a round-based webservice, where it makes decision based on prior analysis, which will ultimately save or destroy the world.
